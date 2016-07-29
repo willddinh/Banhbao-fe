@@ -1,0 +1,43 @@
+//for hpe theme, use the following import instead
+//@import '~grommet/scss/hpe/index';
+
+@import '~grommet/scss/vanilla/index';
+
+.menu  {
+    position: absolute;
+    z-index: 1;
+    color: white;
+    width: 100%;
+    padding-top: 30px;
+    padding-bottom: 15px;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+}
+
+.menuButton {
+    border-bottom: 1px solid transparent;
+    padding-bottom: 17px;
+    margin-left: 6%;
+    cursor: pointer;
+}
+
+.activeMenuButton {
+    border-bottom-color: red;
+}
+
+.menuTitle {
+    font-size: 30px;
+    position: absolute;
+}
+
+.menuLeft {
+    float: left;
+    width: 50%;
+    padding-left: 8%;
+}
+
+.menuRight {
+    float: right;
+    width: 50%;
+}
+
