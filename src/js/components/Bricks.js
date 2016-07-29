@@ -17,6 +17,6 @@ export default class Bricks extends Component {
       </div>
     );
   }
-};
+}
 
 Bricks.displayName = 'Bricks';

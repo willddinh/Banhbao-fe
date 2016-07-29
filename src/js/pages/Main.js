@@ -31,6 +31,89 @@ export default class Main extends Component {
       }
     ];
 
+
+    let tabData1 = [
+      {
+        tabName: "First Title",
+        tabContent: [
+          {
+            id: 1,
+            href: "http://google.com/",
+            type: "large"
+          },
+          {
+            id: 1,
+            href: "http://google.com/",
+            type: "tall"
+          },
+          {
+            id: 1,
+            img: "http://genknews.genkcdn.vn/k:thumb_w/640/2016/1-1469776583175/diemtindota2ti6con4ngaynguoitrungquoctieptucgapkho.png",
+            href: "http://google.com/",
+            type: "small"
+          },
+          {
+            id: 1,
+            img: "http://genknews.genkcdn.vn/k:thumb_w/640/2016/1-1469776583175/diemtindota2ti6con4ngaynguoitrungquoctieptucgapkho.png",
+            href: "http://google.com/",
+            type: "small"
+          }
+        ]
+      },
+      {
+        tabName: "Second Title",
+        tabContent: [
+          {
+            id: 1,
+            img: "http://genknews.genkcdn.vn/k:thumb_w/640/2016/1-1469776583175/diemtindota2ti6con4ngaynguoitrungquoctieptucgapkho.png",
+            href: "http://google.com/",
+            type: "large"
+          },
+          {
+            id: 2,
+            href: "http://google.com/",
+            type: "tall"
+          },
+          {
+            id: 3,
+            href: "http://google.com/",
+            type: "small"
+          },
+          {
+            id: 4,
+            href: "http://google.com/",
+            type: "small"
+          }
+        ]
+      },
+      {
+        tabName: "Third Title",
+        tabContent: [
+          {
+            id: 1,
+            href: "http://google.com/",
+            type: "large"
+          },
+          {
+            id: 1,
+            img: "http://genknews.genkcdn.vn/k:thumb_w/640/2016/1-1469776583175/diemtindota2ti6con4ngaynguoitrungquoctieptucgapkho.png",
+            href: "http://google.com/",
+            type: "tall"
+          },
+          {
+            id: 1,
+            href: "http://google.com/",
+            type: "small"
+          },
+          {
+            id: 1,
+            href: "http://google.com/",
+            type: "small"
+          }
+        ]
+      }
+    ]
+
     let container = {
       width: '80%',
       margin: '0 auto'
@@ -41,9 +124,10 @@ export default class Main extends Component {
         <Menu conf={menuButtonConf}/>
         <NavBar/>
         <div className="container" style={container}>
-          <Section />
-          <Section />
-          <Section />
+
+          <Section name="First Section" data={tabData1}/>
+          <Section name="Second Section" data={tabData1} />
+          <Section name="Third Section" data={tabData1} />
 
         </div>
         <Footer primary={true} appCentered={true} direction="column"

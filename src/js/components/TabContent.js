@@ -5,16 +5,16 @@ import Bricks from './Bricks';
 
 export default class TabContent extends Component {
     render() {
+        let tabContent = this.props.content.map((content, index) => {
+            return (
+                <Brick key={index} texture={content.img} colorIndex={"neutral-" + (index+1)} type={content.type} href={content.href} />
+            )
+        })
         return (
             <div>
                 <h3>{this.props.title}</h3>
-                <p>{this.props.content}</p>
                 <Bricks>
-                    <Brick colorIndex="neutral-1" type="large" href="http://www.grommet.io/docs/" />
-                    <Brick label="Second" colorIndex="neutral-2" type="tall" />
-                    <Brick label="Third" colorIndex="neutral-3">
-                    </Brick>
-                    <Brick label="Fourth" colorIndex="neutral-4" />
+                    {tabContent}
                 </Bricks>
 
             </div>
