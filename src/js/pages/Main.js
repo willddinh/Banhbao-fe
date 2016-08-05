@@ -163,7 +163,7 @@ export default class Main extends Component {
         <NavBar/>
         <div className="container" style={container}>
 
-          <Section name="Sách" data={tabData1}/>
+          <Section name="Thư viện sách" data={tabData1}/>
           <Section name="Second Section" data={tabData1} />
           <Section name="Third Section" data={tabData1} />
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import SearchIcon from './Search';
+import SearchIcon from './icons/Search';
 
 
 export default class SearchInputBox extends Component {

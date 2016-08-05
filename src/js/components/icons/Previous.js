@@ -13,8 +13,8 @@ class Previous extends Component {
    */
   render() {
     return (
-        <span class="grommetux-button__icon">
-            <svg version="1.1" style={{border: '1px solid white'}} viewBox="-8 0 40 22" width="24px" height="24px" role="img" className="grommetux-control-icon grommetux-control-icon-previous grommetux-control-icon--large" ariaLabelledby="previous-title">
+        <span className="grommetux-button__icon">
+            <svg version="1.1" style={{border: '1px solid white'}} viewBox="-8 0 40 22" width="24px" height="24px" role="img" className="grommetux-control-icon grommetux-control-icon-previous grommetux-control-icon--large" >
                 <title id="previous-title">
                     <span id="previous">previous</span>
                 </title>

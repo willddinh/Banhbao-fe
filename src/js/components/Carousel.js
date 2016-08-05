@@ -5,8 +5,8 @@ import Box from 'grommet/components/Box';
 import Tiles from 'grommet/components/Tiles';
 import Tile from 'grommet/components/Tile';
 import Button from 'grommet/components/Button';
-import Previous from './Previous';
-import Next from './Next';
+import Previous from './icons/Previous';
+import Next from './icons/Next';
 import DOM from 'grommet/utils/DOM';
 import CSSClassnames from 'grommet/utils/CSSClassnames';
 

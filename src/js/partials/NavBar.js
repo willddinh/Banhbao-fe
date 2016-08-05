@@ -23,7 +23,9 @@ export default class NavBar extends Component {
         return (
             <div>
                 <SearchInputBox />
-                <span className="adTextLeft">Đọc sách chỉ với<span className="adTextCenter">25K</span><span style={{marginLeft: '130px' }}>Đăng ký ngay</span></span>
+                <div className="adTextGroup">
+                <span className="adTextLeft">Đọc sách chỉ với<span className="adTextCenter">25K</span><span style={{marginLeft: '10px' }}>Đăng ký ngay</span></span>
+                </div>
                 <div className="slider">
                     {Slider}
                 </div>

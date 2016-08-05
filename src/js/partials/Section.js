@@ -19,15 +19,16 @@ export default class Section extends Component {
             )
         })
         return (
-
-            <div style={sectionStyle}>
-                <div className="sectionTitle">
-                    {this.props.name}
+            <div>
+                <div className="section" style={sectionStyle}>
+                    <div className="sectionTitle">
+                        {this.props.name}
+                    </div>
+                    <Tabs>
+                        {tabRender}
+                    </Tabs>
                 </div>
-                <Tabs>
-                    {tabRender}
-                </Tabs>
-
+                <form className="sectionBtn"><button>Xem chi tiết</button></form>
             </div>
         );
     }
