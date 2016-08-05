@@ -5,8 +5,8 @@ import Box from 'grommet/components/Box';
 import Tiles from 'grommet/components/Tiles';
 import Tile from 'grommet/components/Tile';
 import Button from 'grommet/components/Button';
-import Previous from 'grommet/components/icons/base/Previous';
-import Next from 'grommet/components/icons/base/Next';
+import Previous from './Previous';
+import Next from './Next';
 import DOM from 'grommet/utils/DOM';
 import CSSClassnames from 'grommet/utils/CSSClassnames';
 
@@ -101,9 +101,9 @@ export default class Carousel extends Component {
   }
 
   _handleScroll () {
-    var viewportHeight = document.documentElement.clientHeight;
+    var viewportHeight = 650;
     var carouselTopPosition = this.refs.carousel.getBoundingClientRect().top;
-    var carouselHeight = this.refs.carousel.offsetHeight;
+    var carouselHeight = 650;
     var startScroll = viewportHeight - (carouselHeight / 2);
 
     if (this.props.autoplay && carouselTopPosition <= startScroll && carouselTopPosition >= -carouselHeight / 2) {
@@ -195,7 +195,7 @@ export default class Carousel extends Component {
     if (this.props.infinite || this.state.activeIndex !== 0) {
       prevButton = (
         <Button
-          className={CLASS_ROOT + '__arrow ' + CLASS_ROOT + '__arrow--prev'}
+          className={CLASS_ROOT + '__arrow ' + 'arrowPrev'}
           plain={true} onClick={this._slidePrev}>
           <Previous size="large" />
         </Button>
@@ -211,7 +211,7 @@ export default class Carousel extends Component {
       this.state.activeIndex !== this.props.children.length - 1) {
       nextButton = (
         <Button
-          className={CLASS_ROOT + '__arrow ' + CLASS_ROOT + '__arrow--next'}
+          className={CLASS_ROOT + '__arrow ' + 'arrowNext'}
           plain={true} onClick={this._slideNext}>
           <Next size="large" />
         </Button>
@@ -236,7 +236,7 @@ export default class Carousel extends Component {
 
     var width = this.state.width;
     var trackWidth = width * children.length;
-    var trackHeight = "500px"
+    var trackHeight = "650px"
     var trackPosition = -(width * this.state.activeIndex);
 
     var tiles = React.Children.map(children, function (child) {
@@ -249,16 +249,16 @@ export default class Carousel extends Component {
 
     var controls = React.Children.map(children, function (child) {
       index += 1;
-      var controlClasses = [CLASS_ROOT + "__control"];
+      var controlClasses = ["carouselControl"];
       if (index === this.state.activeIndex) {
-        controlClasses.push(CLASS_ROOT + "__control--active");
+        controlClasses.push("carouselControlActive");
       }
 
       return (
         <svg className={controlClasses.join(' ')}
-          viewBox="0 0 24 24" version="1.1"
+          viewBox="0 0 12 12" version="1.1"
           onClick={this._onSelect.bind(this, index)}>
-          <circle cx={12} cy={12} r={6}></circle>
+          <rect width={8} height={8}></rect>
         </svg>
       );
     }, this);
@@ -267,7 +267,7 @@ export default class Carousel extends Component {
       <div ref="carousel" className={classes.join(' ')}
         onMouseEnter={this._onMouseOver} onMouseLeave={this._onMouseOut}>
         <div className={CLASS_ROOT + "__track"}
-          style={{ width: trackWidth, marginLeft: trackPosition }}>
+          style={{ width: trackWidth, marginLeft: trackPosition, height: trackHeight }}>
           <Tiles fill={true} responsive={false} wrap={false} direction="row">
             {tiles}
           </Tiles>

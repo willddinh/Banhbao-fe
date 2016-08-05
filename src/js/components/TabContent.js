@@ -12,7 +12,6 @@ export default class TabContent extends Component {
         })
         return (
             <div>
-                <h3>{this.props.title}</h3>
                 <Bricks>
                     {tabContent}
                 </Bricks>

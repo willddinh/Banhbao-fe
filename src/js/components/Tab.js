@@ -45,11 +45,15 @@ export default class Tab extends Component {
     if (this.props.active) {
       classes.push(CLASS_ROOT + "--active");
     }
+    else if (!this.props.active) {
+      classes.push(CLASS_ROOT + "--not-active");
+    }
+
     let tabLabelStyle = {
-        display: 'inline-block',
-        cursor: 'pointer',
-        paddingBottom: '10px',
-        color: '#666'
+      display: 'inline-block',
+      cursor: 'pointer',
+      paddingBottom: '10px',
+      color: '#999999'
     }
     return (
       <li className={classes.join(' ')} id={this.props.id}>

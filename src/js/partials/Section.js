@@ -8,8 +8,7 @@ import TabContent from '../components/TabContent';
 export default class Section extends Component {
     render() {
         let sectionStyle = {
-            marginTop: '20px',
-            marginBottom: '40px'
+            marginTop: '45px'
         }
         
         let tabRender = this.props.data.map((tab, index) => {
@@ -22,9 +21,9 @@ export default class Section extends Component {
         return (
 
             <div style={sectionStyle}>
-                <Heading tag="h2" align="center">
+                <div className="sectionTitle">
                     {this.props.name}
-                </Heading>
+                </div>
                 <Tabs>
                     {tabRender}
                 </Tabs>

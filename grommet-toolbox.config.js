@@ -6,7 +6,12 @@ export default {
     {
       asset: 'src/img/**',
       dist: 'dist/img/'
+    },
+    {
+      asset: 'src/fonts/**',
+      dist: 'dist/fonts/'
     }
+
   ],
   jsAssets: ['src/js/**/*.js'],
   mainJs: 'src/js/index.js',

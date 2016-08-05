@@ -15,64 +15,102 @@ export default class Main extends Component {
     let menuButtonConf = [
       {
         id: 1,
-        name: 'Button 1',
+        name: 'Trang chủ',
         url: '/#',
         active: true
       },
       {
         id: 2,
-        name: 'Button 2',
+        name: 'Sách',
         url: '/#'
       },
       {
         id: 3,
-        name: 'Button 3',
+        name: 'Quần áo',
+        url: '/#'
+      },
+      {
+        id: 4,
+        name: 'Phụ kiện',
+        url: '/#'
+      },
+      {
+        id: 5,
+        name: 'Khuyến mại',
         url: '/#'
       }
+
+
     ];
 
 
     let tabData1 = [
       {
-        tabName: "First Title",
+        tabName: "Nổi bật",
         tabContent: [
           {
             id: 1,
-            href: "http://google.com/",
-            type: "large"
-          },
-          {
-            id: 1,
-            href: "http://google.com/",
-            type: "tall"
-          },
-          {
-            id: 1,
-            img: "http://genknews.genkcdn.vn/k:thumb_w/640/2016/1-1469776583175/diemtindota2ti6con4ngaynguoitrungquoctieptucgapkho.png",
+            img: "img/book1.png",
             href: "http://google.com/",
             type: "small"
           },
           {
             id: 1,
-            img: "http://genknews.genkcdn.vn/k:thumb_w/640/2016/1-1469776583175/diemtindota2ti6con4ngaynguoitrungquoctieptucgapkho.png",
+            img: "img/book2.png",
+            href: "http://google.com/",
+            type: "small"
+          },
+          {
+            id: 1,
+            img: "img/book3.png",
+            href: "http://google.com/",
+            type: "small"
+          },
+          {
+            id: 1,
+            img: "img/book4.png",
+            href: "http://google.com/",
+            type: "small"
+          },
+          {
+            id: 1,
+            img: "img/book5.png",
+            href: "http://google.com/",
+            type: "small"
+          },
+          {
+            id: 1,
+            img: "img/book6.png",
+            href: "http://google.com/",
+            type: "small"
+          },
+          {
+            id: 1,
+            img: "img/book7.png",
+            href: "http://google.com/",
+            type: "small"
+          },
+          {
+            id: 1,
+            img: "img/book8.png",
             href: "http://google.com/",
             type: "small"
           }
         ]
       },
       {
-        tabName: "Second Title",
+        tabName: "Khuyến mại",
         tabContent: [
           {
             id: 1,
             img: "http://genknews.genkcdn.vn/k:thumb_w/640/2016/1-1469776583175/diemtindota2ti6con4ngaynguoitrungquoctieptucgapkho.png",
             href: "http://google.com/",
-            type: "large"
+            type: "small"
           },
           {
             id: 2,
             href: "http://google.com/",
-            type: "tall"
+            type: "small"
           },
           {
             id: 3,
@@ -87,18 +125,18 @@ export default class Main extends Component {
         ]
       },
       {
-        tabName: "Third Title",
+        tabName: "Tất cả",
         tabContent: [
           {
             id: 1,
             href: "http://google.com/",
-            type: "large"
+            type: "small"
           },
           {
             id: 1,
             img: "http://genknews.genkcdn.vn/k:thumb_w/640/2016/1-1469776583175/diemtindota2ti6con4ngaynguoitrungquoctieptucgapkho.png",
             href: "http://google.com/",
-            type: "tall"
+            type: "small"
           },
           {
             id: 1,
@@ -125,7 +163,7 @@ export default class Main extends Component {
         <NavBar/>
         <div className="container" style={container}>
 
-          <Section name="First Section" data={tabData1}/>
+          <Section name="Sách" data={tabData1}/>
           <Section name="Second Section" data={tabData1} />
           <Section name="Third Section" data={tabData1} />
 

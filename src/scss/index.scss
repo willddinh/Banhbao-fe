@@ -2,32 +2,62 @@
 //@import '~grommet/scss/hpe/index';
 
 @import '~grommet/scss/vanilla/index';
+@font-face {
+	font-family: utmBeba;
+	src: url(../fonts/UTM_BEBAS_1.woff) format("woff");
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: sfuEuro;
+	src: url(../fonts/SFUEUROSTILECONDENSED.woff) format("woff");
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: sfuEuroBold;
+	src: url(../fonts/SFUEUROSTILEBOLD.woff) format("woff");
+}
+
 
 .menu  {
     position: absolute;
     z-index: 1;
     color: white;
     width: 100%;
-    padding-top: 30px;
-    padding-bottom: 15px;
+}
+
+.menuBorder  {
+    position: absolute;
+    z-index: 1;
+    opacity: 0.4;
+    color: white;
+    width: 100%;
+    padding-bottom: 80px;
     border-bottom-width: 1px;
     border-bottom-style: solid;
 }
 
 .menuButton {
     border-bottom: 1px solid transparent;
-    padding-bottom: 17px;
-    margin-left: 6%;
+    padding-bottom: 29px;
+    margin-left: 50px;
     cursor: pointer;
+    font-family: utmBeba;
+    font-size: 15px;
 }
 
 .activeMenuButton {
-    border-bottom-color: red;
+    border-bottom-color: white;
 }
 
 .menuTitle {
     font-size: 30px;
     position: absolute;
+    width: 170px;
+    padding-top: 13px;
 }
 
 .menuLeft {
@@ -39,5 +69,115 @@
 .menuRight {
     float: right;
     width: 50%;
+    padding-top: 30px;
 }
 
+.carouselControl {
+    display: inline-block;
+    width: 15px;
+    stroke: rgba(255, 255, 255, 1);
+    fill: transparent;
+    cursor: pointer;
+    filter: drop-shadow(1px 1px 1px rgba(170, 170, 170, 0.5));
+    -webkit-filter: drop-shadow(1px 1px 1px rgba(170, 170, 170, 0.5));
+}
+
+.carouselControlActive {
+    stroke: #e80f0f;
+    fill: #e80f0f;
+}
+
+.searchGroup  {
+    position: absolute;
+    margin-top: 260px;
+    margin-left: 25%;
+    z-index: 1;
+    width: 50%;
+}
+
+.arrowPrev {
+    left: 60px;
+}
+
+.arrowNext {
+    right: 60px;
+}
+
+.sectionTitle {
+    font-family: utmBeba;
+    font-size: 36px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.grommetux-tab--active {
+    font-family: sfuEuroBold; 
+}
+
+.grommetux-tab--not-active {
+    font-family: sfuEuro; 
+}
+
+.grommetux-brick {
+    padding: 24px;
+    position: relative;
+    float: left;
+    left: 24px;
+    margin: 0 auto;
+    max-width: calc(100% - 12px);
+}
+
+.grommetux-tabs {
+    margin: 12px 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    list-style: none;
+    border-bottom: 0px solid rgba(0, 0, 0, 0.15);
+}
+
+.searchForm input {
+    font-size: 1rem;
+    line-height: 1.5;
+    padding: 20px 23px;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 0px; 
+    outline: none;
+    background-color: transparent;
+}
+
+.searchForm input[type="button"], .searchForm input[type="submit"], .searchForm button:not(.grommetux-button) {
+padding: 19px;
+    background-color: #e80f0f;
+    border: 2px solid #e80f0f;
+    border-radius: 0px;
+    color: #333;
+    font-size: 19px;
+    font-size: 1.1875rem;
+    line-height: 24px;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    outline: none;
+    min-width: 90px;
+    max-width: 90px;
+}
+
+.adTextCenter {
+    font-family: utmBeba;
+    font-size: 83px;
+    margin-top: 1px;
+    margin-left: 10px;
+    position: absolute;
+}
+
+.adTextLeft {
+    font-family: utmBeba;
+    font-size: 38px;
+    z-index: 1;
+    position: absolute;
+    margin-top: 400px;
+    margin-left: 35%;
+    color: white;
+}

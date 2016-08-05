@@ -35,13 +35,16 @@ export default class Menu extends Component {
             )
         })
         return (
-            <div className="menu">
-                <div className="menuLeft">
-                    <span className="menuTitle">BANHBAO</span>
-                </div>
-                <div className="menuRight">
-                    {buttonArr}
-                </div>
+            <div>
+                <div className="menuBorder"></div>
+                    <div className="menu">
+                        <div className="menuLeft">
+                            <span className="menuTitle"><img src="img/logo.png" /></span>
+                        </div>
+                        <div className="menuRight">
+                            {buttonArr}
+                        </div>
+                    </div>
             </div>
         );
     }

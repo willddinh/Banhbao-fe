@@ -12,9 +12,9 @@ export default class NavBar extends Component {
         }
         const Slider = (
             <Carousel autoplay={false}>
-                <Image src="http://pre12.deviantart.net/d4d7/th/pre/f/2015/351/7/0/league_of_legends_fan_art___tahm_kench_retreat___by_benlo-d9ki3br.jpg" />
-                <Image src="http://pre12.deviantart.net/d4d7/th/pre/f/2015/351/7/0/league_of_legends_fan_art___tahm_kench_retreat___by_benlo-d9ki3br.jpg" />
-                <Image src="http://pre12.deviantart.net/d4d7/th/pre/f/2015/351/7/0/league_of_legends_fan_art___tahm_kench_retreat___by_benlo-d9ki3br.jpg" />
+                <Image src="img/carouselBackground.png" />
+                <Image src="img/carouselBackground.png" />
+                <Image src="img/carouselBackground.png" />
             </Carousel>
         )
         let style = {
@@ -22,11 +22,8 @@ export default class NavBar extends Component {
         }
         return (
             <div>
-                <div style={style}></div>
-                <div style={style}></div>
-                <div style={style}></div>
-                <div style={style}></div>
                 <SearchInputBox />
+                <span className="adTextLeft">Đọc sách chỉ với<span className="adTextCenter">25K</span><span style={{marginLeft: '130px' }}>Đăng ký ngay</span></span>
                 <div className="slider">
                     {Slider}
                 </div>
