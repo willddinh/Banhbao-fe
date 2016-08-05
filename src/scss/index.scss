@@ -148,11 +148,11 @@
 }
 
 .searchForm input[type="button"], .searchForm input[type="submit"], .searchForm button:not(.grommetux-button) {
-padding: 19px;
+    padding: 8px;
     background-color: #e80f0f;
-    border: 2px solid #e80f0f;
+    border: 1px solid #e80f0f;
     border-radius: 0px;
-    color: #333;
+    color: white;
     font-size: 19px;
     font-size: 1.1875rem;
     line-height: 24px;
