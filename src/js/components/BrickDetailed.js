@@ -13,10 +13,6 @@ const TYPE_WIDE = 'wide';
 const TYPE_TALL = 'tall';
 
 export default class Brick extends Component {
-  onMouseOver(e){
-      window.console.log(e);
-  }
-
   render () {
     let widthUnit = 1;
     let heightUnit = 1;
@@ -38,11 +34,12 @@ export default class Brick extends Component {
 
     let clickable = this.props.href || this.props.onClick;
 
-    let classes = classnames("flip-container",
-      CLASS_ROOT,
-      `${CLASS_ROOT}--${widthUnit}-${heightUnit}`,
+    let classes = classnames(
+      "productListItem",
+      "productListItemSmall",
       {
-        [`${CLASS_ROOT}--clickable`]: clickable
+        [`${BACKGROUND_COLOR_INDEX}-${this.props.colorIndex}`]: this.props.colorIndex,
+        [`productListItem--clickable`]: clickable
       },
       this.props.className
     );
@@ -79,22 +76,23 @@ export default class Brick extends Component {
     if (clickable) {
       return (
         <Anchor href={this.props.href} onClick={this.props.onClick} className={classes}>
-          <div onMouseOver={this.onMouseOver.bind(this)} className={`${CLASS_ROOT}__background`} style={style}>
+          <div className={`${CLASS_ROOT}__background`} style={style}>
             {brickContent}
           </div>
+          
+          <div className="productListItemInfo">
+            <div className="banhBaoRow productListItemInfo--title" alt="thien">{this.props.title}</div>
+            <div className="banhBaoRow productListItemInfo--author">{this.props.author}</div>
+            <div className="banhBaoRow productListItemInfo--rent-price">{this.props.rentPrice} đồng/ngày</div>
+            <div className="banhBaoRow productListItemInfo--price">giá bán: {this.props.price} đồng</div>
+          </div>
+
         </Anchor>
       );
     } else {
       return (
-        <div className={classes}  onMouseOver={this.onMouseOver.bind(this)}>
-          <div className="flipper">
-            <div className="front" style={style}>
-              {brickContent}
-            </div>
-            <div className="back">
-              ABC
-            </div>
-          </div>
+        <div className={classes} style={style}>
+          {brickContent}
         </div>
       );
     }

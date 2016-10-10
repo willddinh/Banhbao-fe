@@ -21,13 +21,31 @@
 	src: url(../fonts/SFUEUROSTILEBOLD.woff) format("woff");
 }
 
+@font-face {
+	font-family: sfuEuroNormal;
+	src: url(../fonts/SFUEUROSTILEBOLD.woff) format("woff");
+    font-weight: normal;
+	font-style: normal;
+
+}
 
 .menu  {
     position: absolute;
     z-index: 1;
     color: white;
     width: 100%;
+    
 }
+
+.menuNoNavbar  {
+    position: relative;
+    z-index: 1;
+    color: white;
+    width: 100%;
+    background-color: #333131;
+    padding-bottom: 81px;
+}
+
 
 .menuBorder  {
     position: absolute;
@@ -207,4 +225,205 @@
     outline: none;
     min-width: 150px;
     max-width: 150px;
+}
+
+.categoryList {
+    // width: 260px;
+    border-radius: 10px;
+    border: 2px solid #A6ACAF;
+    margin-bottom: 10px;
+}
+
+.categoryListHeader {
+    font-family: utmBeba;
+    line-height: 50px;
+}
+
+.categoryListBody {
+    font-family: sfuEuro;
+    color: #A6ACAF;
+    border-bottom: 1px solid #909497;
+}
+.categoryListBody:nth-last-child(1) {
+    border-bottom: 0px;
+}
+
+table {
+    margin-bottom: 0px;
+}
+
+.publisherList {
+    // width: 260px;
+}
+
+.publisherListHeader {
+    font-family: utmBeba;
+    line-height: 50px;
+    font-size: 20px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #909497;
+}
+
+.productListItem {
+    padding: 24px;
+    position: relative;
+    float: left;
+    left: 24px;
+    margin: 10px 10px;
+    margin-bottom: 170px;
+    max-width: calc(100% - 12px);
+}
+
+
+.productListItemSmall {
+width: calc(19% - 12px); }
+.productListItemSmall:after {
+    padding-top: 100%;
+    display: block;
+    content: ''; }
+@media screen and (max-width: 63.9375em) {
+    .productListItemSmall {
+    width: calc(50% - 12px); } }
+.grommetux-brick--1-2 {
+width: calc(25% - 12px); }
+.grommetux-brick--1-2:after {
+    padding-top: calc(200% + 60px);
+    display: block;
+    content: ''; }
+@media screen and (max-width: 63.9375em) {
+    .grommetux-brick--1-2 {
+    width: calc(50% - 12px); } }
+.grommetux-brick--2-1 {
+width: calc(50% - 12px); }
+.grommetux-brick--2-1:after {
+    padding-top: calc(50% - 30px);
+    display: block;
+    content: ''; }
+@media screen and (max-width: 63.9375em) {
+    .grommetux-brick--2-1 {
+    width: calc(100% - 12px); } }
+.grommetux-brick--2-2 {
+width: calc(50% - 12px); }
+.grommetux-brick--2-2:after {
+    padding-top: 100%;
+    display: block;
+    content: ''; }
+@media screen and (max-width: 63.9375em) {
+    .grommetux-brick--2-2 {
+    width: calc(100% - 12px); } 
+}
+
+
+.productListItem--clickable:hover, .productListItem--clickable:focus {
+    // z-index: 1;
+    // transition: transform 0.4s;
+    // transform: scale(1.05);
+    // outline: none; 
+}
+
+.productListItemInfo {
+    position: absolute;
+    margin-top: 100%;
+    color: black;
+    width: 100%;
+    margin-left: -25px;
+}
+
+.productListItemInfo--title {
+    font-family: utmBeba;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    font-size: 18px;
+}
+.productListItemInfo--title:hover {
+    text-overflow: clip;
+    white-space: normal;
+    word-break: break-all;
+}
+.productListItemInfo--author {
+    font-family: sfuEuro;
+    color: #909497
+}
+.productListItemInfo--rent-price {
+    font-family: utmBeba;
+    font-size: 25px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+.productListItemInfo--price {
+    font-family: utmBeba;
+    color: #909497;
+}
+
+
+.banhBaoRow {
+    width: 100%;
+    text-align: center;
+}
+
+/* entire container, keeps perspective */
+.flip-container {
+	perspective: 1000px;
+}
+	/* flip the pane when hovered */
+	.flip-container:hover .flipper, .flip-container.hover .flipper {
+		transform: rotateY(180deg);
+	}
+
+.flip-container, .front, .back {
+	width: 320px;
+	height: 480px;
+}
+
+/* flip speed goes here */
+.flipper {
+	transition: 0.6s;
+	transform-style: preserve-3d;
+
+	position: relative;
+}
+
+/* hide back of pane during swap */
+.front, .back {
+	backface-visibility: hidden;
+
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+/* front pane, placed above back */
+.front {
+	z-index: 2;
+	/* for firefox 31 */
+	transform: rotateY(0deg);
+}
+
+/* back, initially hidden pane */
+.back {
+	transform: rotateY(180deg);
+}
+
+.facebookBtn {
+    color: white;
+}
+
+.checkOutHeader {
+    background-color: #F5F5F5;
+    height: 77px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    font-family: sfuEuro;
+
+}
+
+.checkOutMain {
+    
+    font-family: sfuEuro;
+
 }

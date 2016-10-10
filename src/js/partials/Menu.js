@@ -1,15 +1,29 @@
 import React, { Component } from 'react';
+import $ from 'jquery';
+import { FacebookLogin } from 'react-facebook-login-component';
+
 
 export default class Menu extends Component {
     constructor() {
         super();
         this.state = {
-            
+            conf:[]
         }
     }
 
-    componentWillMount(){
-        this.state.conf = this.props.conf;
+    componentDidMount(){
+        $.get("http://104.199.175.76/api/ui/menu/home")
+        .done((res)=>{
+            this.setState({
+                conf: res.menuses
+            }) 
+        })
+
+
+    }
+    responseFacebook (response) {
+        window.console.log(response);
+        //anything else you want to do(save to localStorage)... 
     }
 
     clickOnButton(id) {
@@ -23,7 +37,12 @@ export default class Menu extends Component {
     }
 
     render() {
-
+        let classRoot = "menu";
+        if (!this.props.noNavBar)
+            classRoot = "menu";
+        else 
+            classRoot = "menuNoNavbar";
+        
         let buttonArr = this.state.conf.map((button, index) => {
             let buttonClass;
             if (button.active == true)
@@ -31,20 +50,32 @@ export default class Menu extends Component {
             else 
                 buttonClass = "menuButton"
             return (
-                <span onClick={this.clickOnButton.bind(this, button.id) } key={index} href={button.url} className={buttonClass}>{button.name}</span>
+                <span onClick={this.clickOnButton.bind(this, button.id) } key={index} href={button.url} className={buttonClass} >{button.title}</span>
             )
         })
         return (
             <div>
                 <div className="menuBorder"></div>
-                    <div className="menu">
+                    <div className={classRoot}>
+                    
                         <div className="menuLeft">
                             <span className="menuTitle"><img src="img/logo.png" /></span>
                         </div>
+
                         <div className="menuRight">
                             {buttonArr}
+                                                    <FacebookLogin socialId="156142261154836"
+                                language="en_US"
+                                scope="public_profile,email"
+                                responseHandler={this.responseFacebook}
+                                xfbml={true}
+                                version="v2.5"
+                                class="menuButton"
+                                buttonText="Login via fb"/>
                         </div>
+
                     </div>
+                    
             </div>
         );
     }
