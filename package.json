@@ -8,13 +8,20 @@
     "react": "^15.0.2",
     "react-dom": "^15.0.2",
     "react-facebook-login-component": "^0.6.0",
-    "react-router": "*"
+    "react-router": "*",
+    "react-router-redux": "^4.0.6"
   },
   "devDependencies": {
+    "babel-loader": "^6.2.5",
     "babel-preset-es2015": "^6.3.13",
     "babel-preset-react": "^6.3.13",
     "babel-register": "^6.5.2",
     "grommet-toolbox": "^0.1.0",
-    "gulp": "^3.9.0"
+    "gulp": "^3.9.0",
+    "react": "^15.3.2",
+    "react-hot-loader": "^3.0.0-beta.5",
+    "react-router": "^2.8.1",
+    "webpack": "^1.13.2",
+    "webpack-dev-server": "^1.16.2"
   }
 }

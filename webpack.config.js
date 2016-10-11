@@ -1,49 +1,42 @@
-/*eslint-disable no-var */
-
-var fs = require('fs')
 var path = require('path')
 var webpack = require('webpack')
 
 module.exports = {
-
-  devtool: 'inline-source-map',
-
-  entry: { 'src': 'D:\\BanhBao\\src\\js\\index.js'},
-
-  output: {
-    path: __dirname + '/dist',
-    filename: '[name].js',
-    chunkFilename: '[id].chunk.js',
-    publicPath: '/dist'
+  entry: {
+    javascript: './index.js',
+    html: '../index.html'
   },
+  output: {
+    path: path.join(__dirname, 'dist'),
+    filename: 'index.js'
+  },
+
+  context: path.join(__dirname, 'src','js'),
 
   module: {
-    loaders: [
-      { test: /\.js$/, exclude: /node_modules/, loader: 'babel' },
-      {
-        test: /\.scss$/,
-        loaders: [
-          'style?sourceMap',
-          'css?modules&importLoaders=1&localIdentName=[name]--[local]',
-          'sass?sourceMap'
-        ],
-        exclude: /node_modules/
+    loaders: [{
+      test: /\.js$/,
+      loaders: [ 'react-hot-loader/webpack','babel' ],
+      exclude: /node_modules/,
+      include: __dirname
+    }, {
+      test: /\.scss?$/,
+      loaders: ['style', 'css', 'sass'],
+      include: __dirname
+    },
+    {
+      test   : /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9=&.]+)?$/,
+      loader : 'file-loader'
+    },
+    { test: /\.html$/, loader: 'file?name=[name].[ext]' }
 
-      }
     ]
   },
-resolve: { modulesDirectories: ['node_modules', 'src'], extension: ['', '.js', '.scss'] },
-  // Expose __dirname to allow automatically setting basename.
-  context: __dirname,
-  node: {
-    __dirname: true
+  sassLoader: {
+    includePaths: [path.resolve(__dirname, "./node_modules")]
   },
-
-  plugins: [
-    new webpack.optimize.CommonsChunkPlugin('shared.js'),
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
-    })
-  ]
+  devServer: {
+    historyApiFallback: true
+  }
 
 }

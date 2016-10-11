@@ -1,6 +1,6 @@
 import '../../scss/index.scss';
 
-import React, { Component } from 'react';
+import React, { Component, PropTypes  } from 'react';
 import ReactDOM from 'react-dom';
 import App from 'grommet/components/App';
 import Header from 'grommet/components/Header';
@@ -12,7 +12,13 @@ import Section from '../partials/Section';
 import $ from 'jquery';
 import { Link } from 'react-router'
 
-export default class Book extends Component {
+
+import { connect } from 'react-redux'
+import { loginUser, fetchQuote, fetchSecretQuote } from '../actions'
+import Login from '../login'
+import Quotes from '../quotes'
+
+class Book extends Component {
   constructor (props) {
     super (props);
 
@@ -24,9 +30,13 @@ export default class Book extends Component {
   }
 
   componentDidMount(){
+    window.console.log(this.props);
+        window.console.log("Thien");
+
   }
   render() {
   
+    const { dispatch, quote, isAuthenticated, errorMessage, isSecretQuote } = this.props
 
     let container = {
       width: '80%',
@@ -34,11 +44,23 @@ export default class Book extends Component {
     }
     return (
       <App centered={false}>
-        <Menu/>
-        <NavBar/>
+        <Menu           
+          isAuthenticated={isAuthenticated}
+          errorMessage={errorMessage}
+          dispatch={dispatch}
+        />
+        <NavBar />
 
 
         <div className="container" style={container}>
+          <Quotes
+            onQuoteClick={() => dispatch(fetchQuote())}
+            onSecretQuoteClick={() => dispatch(fetchSecretQuote())}
+            isAuthenticated={isAuthenticated}
+            quote={quote}
+            isSecretQuote={isSecretQuote}
+          />
+
           <Section name="Thư viện sách" />
           <Section name="Second Section"  />
           <Section name="Third Section" />
@@ -54,3 +76,30 @@ export default class Book extends Component {
     );
   }
 }
+
+Book.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  quote: PropTypes.string,
+  isAuthenticated: PropTypes.bool.isRequired,
+  errorMessage: PropTypes.string,
+  isSecretQuote: PropTypes.bool.isRequired
+}
+
+
+function mapStateToProps(state, ownProps) {
+  window.console.log(state);
+  window.console.log(ownProps);
+
+  const { quotes, auth } = state.quotesApp
+  const { quote, authenticated } = quotes
+  const { isAuthenticated, errorMessage } = auth
+
+  return {
+    quote,
+    isSecretQuote: authenticated,
+    isAuthenticated,
+    errorMessage
+  }
+}
+
+export default connect(mapStateToProps)(Book)

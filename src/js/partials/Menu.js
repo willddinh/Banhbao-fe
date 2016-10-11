@@ -1,6 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes  } from 'react';
 import $ from 'jquery';
 import { FacebookLogin } from 'react-facebook-login-component';
+import Login from '../login'
+import Logout from '../logout'
+import { loginUser, logoutUser } from '../actions'
 
 
 export default class Menu extends Component {
@@ -37,6 +40,8 @@ export default class Menu extends Component {
     }
 
     render() {
+        const { dispatch, isAuthenticated, errorMessage } = this.props
+
         let classRoot = "menu";
         if (!this.props.noNavBar)
             classRoot = "menu";
@@ -59,7 +64,18 @@ export default class Menu extends Component {
                     <div className={classRoot}>
                     
                         <div className="menuLeft">
-                            <span className="menuTitle"><img src="img/logo.png" /></span>
+                                        {!isAuthenticated &&
+              <Login
+                errorMessage={errorMessage}
+                onLoginClick={ creds => dispatch(loginUser(creds)) }
+              />
+            }
+
+            {isAuthenticated &&
+              <Logout onLogoutClick={() => dispatch(logoutUser())} />
+            }
+
+
                         </div>
 
                         <div className="menuRight">
@@ -79,4 +95,10 @@ export default class Menu extends Component {
             </div>
         );
     }
+}
+
+Menu.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
+  errorMessage: PropTypes.string
 }
