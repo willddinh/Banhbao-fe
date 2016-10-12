@@ -1,6 +1,6 @@
 import '../../scss/index.scss';
 
-import React, { Component, PropTypes  } from 'react';
+import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import App from 'grommet/components/App';
 import Header from 'grommet/components/Header';
@@ -8,17 +8,17 @@ import Footer from 'grommet/components/Footer';
 import Title from 'grommet/components/Title';
 import NavBar from '../partials/NavBar';
 import Menu from '../partials/Menu';
-import Section from '../partials/Section';
+import CategoryList from '../components/CategoryList';
+import PublisherList from '../components/PublisherList';
+import ProductList from '../pages/ProductList';
+
 import $ from 'jquery';
-import { Link } from 'react-router'
-
-
 import { connect } from 'react-redux'
-import { loginUser, fetchQuote, fetchSecretQuote } from '../actions'
+import { loginUser, fetchBook, fetchQuote, fetchSecretQuote } from '../actions'
 import Login from '../login'
 import Quotes from '../quotes'
 
-class Book extends Component {
+class BookDetail extends Component {
   constructor (props) {
     super (props);
 
@@ -30,15 +30,27 @@ class Book extends Component {
   }
 
   componentDidMount(){
-
+      window.console.log(this.props.params);
   }
   render() {
-  
-    const { dispatch, quote, isAuthenticated, errorMessage, isSecretQuote } = this.props
 
+        const { dispatch, quote, book, isAuthenticated, errorMessage, isSecretQuote } = this.props
+        dispatch(fetchBook(this.props.params.id));
     let container = {
       width: '80%',
-      margin: '0 auto'
+      margin: '0 auto',
+      marginTop: '50px'
+    }
+
+    let leftSection = {
+        float: 'left',
+        width: '20%'
+    }
+
+    let rightSection = {
+        float: 'right',
+        width: '80%'
+
     }
     return (
       <App centered={false}>
@@ -49,46 +61,41 @@ class Book extends Component {
         />
         <NavBar />
 
-
-        <div className="container" style={container}>
-          <Quotes
+                  <Quotes
             onQuoteClick={() => dispatch(fetchQuote())}
             onSecretQuoteClick={() => dispatch(fetchSecretQuote())}
             isAuthenticated={isAuthenticated}
             quote={quote}
             isSecretQuote={isSecretQuote}
           />
+          {book}
 
-          <Section name="Thư viện sách" />
-          <Section name="Second Section"  />
-          <Section name="Third Section" />
-
+        <div className="productListSection" style={container}>
         </div>
-        <Footer primary={true} appCentered={true} direction="column"
-          align="center" pad="small" colorIndex="grey-1">
-          <p>
-            Build your ideas with <a href="http://grommet.io" target="_blank">Grommet</a>!
-          </p>
-        </Footer>
+        <br/>
+        <br/>
+        <br/>
       </App>
     );
   }
 }
 
 
-
 function mapStateToProps(state, ownProps) {
 
-  const { quotes, auth } = state.quotesApp
+  const { books, quotes, auth } = state.quotesApp
   const { quote, authenticated } = quotes
+    const { book } = books
+
   const { isAuthenticated, errorMessage } = auth
 
   return {
     quote,
+    book,
     isSecretQuote: authenticated,
     isAuthenticated,
     errorMessage
   }
 }
 
-export default connect(mapStateToProps)(Book)
+export default connect(mapStateToProps)(BookDetail)

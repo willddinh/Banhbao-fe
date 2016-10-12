@@ -95,8 +95,6 @@ BookList.propTypes = {
 
 
 function mapStateToProps(state, ownProps) {
-  window.console.log(state);
-  window.console.log(ownProps);
 
   const { quotes, auth } = state.quotesApp
   const { quote, authenticated } = quotes

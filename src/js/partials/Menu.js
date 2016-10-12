@@ -97,8 +97,3 @@ export default class Menu extends Component {
     }
 }
 
-Menu.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.bool.isRequired,
-  errorMessage: PropTypes.string
-}

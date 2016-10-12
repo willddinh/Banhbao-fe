@@ -9,14 +9,14 @@ export default class Quotes extends Component {
       <div>
         <div className='col-sm-3'>
           <button onClick={onQuoteClick} className="btn btn-primary">
-            Get Quote
+            Action without Authorization
           </button>
         </div>
 
         { isAuthenticated &&
           <div className='col-sm-3'>
             <button onClick={onSecretQuoteClick} className="btn btn-warning">
-              Get Secret Quote
+              Action with Authorization
             </button>
           </div>
         }
@@ -33,7 +33,7 @@ export default class Quotes extends Component {
               <span className="label label-danger">Secret Quote</span>
               <hr/>
               <blockquote>
-                {quote}
+                {JSON.stringify(quote)}
               </blockquote>
             </div>
           }

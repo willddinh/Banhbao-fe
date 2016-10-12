@@ -14,7 +14,6 @@ const TYPE_TALL = 'tall';
 
 export default class Brick extends Component {
   onMouseOver(e){
-      window.console.log(e);
   }
 
   render () {

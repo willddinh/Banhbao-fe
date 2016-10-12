@@ -5,8 +5,12 @@ import ReactDOM from 'react-dom';
 import Main from './pages/Main.js';
 import Book from './pages/Book.js';
 import BookList from './pages/BookList.js';
+import BookDetail from './pages/BookDetail.js';
+
 import Checkout from './pages/Checkout/Checkout.js';
 import UserProfile from './pages/User/UserProfile.js';
+import App from 'grommet/components/App';
+import Menu from './partials/Menu';
 
 import { Router, Route, IndexRoute, Link, IndexLink, browserHistory } from 'react-router';
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
@@ -44,8 +48,7 @@ const Index = React.createClass({
   render() {
     return (
       <div>
-      a
-        {this.props.children}
+          {this.props.children}
       </div>
     )
   }
@@ -59,7 +62,11 @@ ReactDOM.render((
     <Router history={history}>
       <Route path="/" component={Index}>
         <IndexRoute component={Book}/>
-        <Route path="book" component={BookList}/>
+        <Route path="books" component={BookList} />
+        <Route path="/book/:id" component={BookDetail}/>
+
+        <Route path="checkout" component={Checkout}/>
+
         <Route path="*" component={NoMatch}/>
       </Route>
     </Router>

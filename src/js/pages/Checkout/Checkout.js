@@ -13,8 +13,12 @@ import CheckoutMain from './CheckoutMain';
 
 import $ from 'jquery';
 import { Link } from 'react-router'
+import { connect } from 'react-redux'
+import { loginUser, fetchPaymentList, fetchQuote, fetchSecretQuote } from '../../actions'
+import Login from '../../login'
+import Quotes from '../../quotes'
 
-export default class Checkout extends Component {
+class Checkout extends Component {
   constructor (props) {
     super (props);
 
@@ -26,9 +30,11 @@ export default class Checkout extends Component {
   }
 
   componentDidMount(){
+    this.props.dispatch(fetchPaymentList());
+
   }
   render() {
-  
+    const { dispatch, quote,  isAuthenticated, errorMessage, isSecretQuote } = this.props
 
     let container = {
       width: '80%',
@@ -36,7 +42,13 @@ export default class Checkout extends Component {
     }
     return (
       <App centered={false}>
-        <Menu noNavBar={true} />
+              <Menu           
+          isAuthenticated={isAuthenticated}
+          errorMessage={errorMessage}
+          dispatch={dispatch}
+          noNavBar={true}
+        />
+
         <CheckoutHeader />
         <div className="container" style={container}>
           <CheckoutMain />
@@ -45,3 +57,22 @@ export default class Checkout extends Component {
     );
   }
 }
+
+function mapStateToProps(state, ownProps) {
+
+  const { paymentLists, quotes, auth } = state.quotesApp
+  const { quote, authenticated } = quotes
+  const { payment } = paymentLists
+
+  const { isAuthenticated, errorMessage } = auth
+
+  return {
+    quote,
+    payment,
+    isSecretQuote: authenticated,
+    isAuthenticated,
+    errorMessage
+  }
+}
+
+export default connect(mapStateToProps)(Checkout)
