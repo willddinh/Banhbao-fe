@@ -7,8 +7,10 @@ import {
   PAYMENT_REQUEST_REQUEST, PAYMENT_REQUEST_SUCCESS, PAYMENT_REQUEST_FAILURE,
   PAYMENT_CONFIRM_REQUEST, PAYMENT_CONFIRM_SUCCESS, PAYMENT_CONFIRM_FAILURE,
   ADD_TO_CART_REQUEST, ADD_TO_CART_SUCCESS, ADD_TO_CART_FAILURE,
-  CART_REQUEST, CART_SUCCESS, CART_FAILURE
+  CART_REQUEST, CART_SUCCESS, CART_FAILURE,
+  BOOK_LIST_REQUEST, BOOK_LIST_SUCCESS, BOOK_LIST_FAILURE
 } from './actions'
+
 
 // The auth reducer. The starting state sets authentication
 // based on a token being in local storage. In a real app,
@@ -17,6 +19,7 @@ function auth(state = {
     payUrl: '',
     addToCart: '',
     cart: '',
+    bookList:'',
     isFetching: false,
     paymentConfirmation: '',
     isAuthenticated: localStorage.getItem('id_token') ? true : false
@@ -83,6 +86,9 @@ function auth(state = {
         isFetching: true
       })
     case ADD_TO_CART_SUCCESS:
+      alert("Đã đưa thành công vào giỏ hàng: "+action.response.orderId);
+      localStorage.setItem('order', action.response.orderId)
+
       return Object.assign({}, state, {
         isFetching: false,
         addToCart: action.response,
@@ -108,6 +114,21 @@ function auth(state = {
       return Object.assign({}, state, {
         isFetching: false,
         isAuthenticated: false,
+        errorMessage: action.message
+      })
+    case BOOK_LIST_REQUEST:
+      return Object.assign({}, state, {
+        isFetching: true
+      })
+    case BOOK_LIST_SUCCESS:
+      return Object.assign({}, state, {
+        isFetching: false,
+        bookList: action.response,
+        authenticated: action.authenticated || false
+      })
+    case BOOK_LIST_FAILURE:
+      return Object.assign({}, state, {
+        isFetching: false,
         errorMessage: action.message
       })
 

@@ -65,6 +65,7 @@
     cursor: pointer;
     font-family: utmBeba;
     font-size: 15px;
+    color: white;
 }
 
 .activeMenuButton {
@@ -209,7 +210,7 @@
     display: flex;
 }
 
-.sectionBtn input[type="button"], .sectionBtn input[type="submit"], .sectionBtn button:not(.grommetux-button) {
+.sectionBtn span,input[type="button"], .sectionBtn input[type="submit"], .sectionBtn button:not(.grommetux-button) {
     margin: 0 auto;
     padding: 8px;
     background-color: #e80f0f;
@@ -327,6 +328,14 @@ width: calc(50% - 12px); }
     color: black;
     width: 100%;
     margin-left: -25px;
+}
+
+.productListItemDb {
+    position: absolute;
+    margin-top: 50%;
+    color: black;
+    width: 100%;
+    margin-left: 50px;
 }
 
 .productListItemInfo--title {

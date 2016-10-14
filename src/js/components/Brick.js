@@ -4,6 +4,8 @@ import React, { Component, PropTypes } from 'react';
 import classnames from 'classnames';
 import Anchor from 'grommet/components/Anchor';
 import CSSClassnames from 'grommet/utils/CSSClassnames';
+import { fetchAddToCart } from '../actions'
+import { connect } from 'react-redux'
 
 const CLASS_ROOT = CSSClassnames.BRICK;
 const BACKGROUND_COLOR_INDEX = CSSClassnames.BACKGROUND_COLOR_INDEX;
@@ -12,10 +14,12 @@ const TYPE_LARGE = 'large';
 const TYPE_WIDE = 'wide';
 const TYPE_TALL = 'tall';
 
-export default class Brick extends Component {
+class Brick extends Component {
   onMouseOver(e){
   }
-
+  onClick(id){
+    this.props.dispatch(fetchAddToCart(id));
+  }
   render () {
     let widthUnit = 1;
     let heightUnit = 1;
@@ -91,7 +95,14 @@ export default class Brick extends Component {
               {brickContent}
             </div>
             <div className="back">
-              ABC
+            <div className="productListItemDb">
+            <div className="banhBaoRow productListItemInfo--title" alt="thien">{this.props.content.title}</div>
+            <div className="banhBaoRow productListItemInfo--rent-price">{this.props.content.rent_price} đồng/lần</div>
+            <div className="banhBaoRow productListItemInfo--price">giá bán: {this.props.content.price} đồng</div>
+            <form className="sectionBtn"><span onClick={this.onClick.bind(this, this.props.content.id)}>Đưa vào giỏ hàng</span></form>
+
+          </div>
+
             </div>
           </div>
         </div>
@@ -115,3 +126,21 @@ Brick.propTypes = {
 Brick.defaultProps = {
   type: TYPE_SMALL
 };
+
+function mapStateToProps(state, ownProps) {
+
+  const { quotes, auth } = state.banhBaoApp
+  const { quote, authenticated } = quotes
+  const { addToCart, bookList, isAuthenticated, errorMessage } = auth
+
+  return {
+    addToCart,
+    quote,
+    bookList,
+    isSecretQuote: authenticated,
+    isAuthenticated,
+    errorMessage
+  }
+}
+
+export default connect(mapStateToProps)(Brick)

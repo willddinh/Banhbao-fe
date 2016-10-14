@@ -14,7 +14,7 @@ import ProductList from '../pages/ProductList';
 
 import $ from 'jquery';
 import { connect } from 'react-redux'
-import { loginUser, fetchQuote, fetchSecretQuote } from '../actions'
+import { loginUser, fetchQuote, fetchBookList, fetchSecretQuote } from '../actions'
 import Login from '../login'
 import Quotes from '../quotes'
 
@@ -30,6 +30,7 @@ class BookList extends Component {
   }
 
   componentDidMount(){
+    this.props.dispatch(fetchBookList());
   }
   render() {
 
@@ -59,15 +60,6 @@ class BookList extends Component {
           dispatch={dispatch}
         />
         <NavBar />
-                  <Quotes
-            onQuoteClick={() => dispatch(fetchQuote())}
-            onSecretQuoteClick={() => dispatch(fetchSecretQuote())}
-            isAuthenticated={isAuthenticated}
-            quote={quote}
-            isSecretQuote={isSecretQuote}
-          />
-
-
         <div className="productListSection" style={container}>
             <div style={leftSection}>
                 <CategoryList />

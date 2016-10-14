@@ -6,9 +6,7 @@ export default class Logout extends Component {
     const { onLogoutClick } = this.props
 
     return (
-      <button onClick={() => onLogoutClick()} className="btn btn-primary">
-        Logout
-      </button>
+      <form className="sectionBtn"><span onClick={() => onLogoutClick()}>Đăng xuất</span></form>
     )
   }
 

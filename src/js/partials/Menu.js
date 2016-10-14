@@ -4,16 +4,32 @@ import { FacebookLogin } from 'react-facebook-login-component';
 import Login from '../login'
 import Logout from '../logout'
 import { loginUser, logoutUser } from '../actions'
+import { Link } from 'react-router'
+import Header from 'grommet/components/Header';
+import Layer from 'grommet/components/Layer';
+import Section from 'grommet/components/Section';
+import Heading from 'grommet/components/Heading';
+import Paragraph from 'grommet/components/Paragraph';
 
 
 export default class Menu extends Component {
     constructor() {
         super();
         this.state = {
-            conf:[]
+            conf: [],
+            openDialogForm:true
         }
     }
-
+    onClose(e){
+        this.setState({
+            openDialogForm: !this.state.openDialogForm
+        })
+    }
+    openLoginForm(){
+        this.setState({
+            openDialogForm: !this.state.openDialogForm
+        })
+    }
     componentDidMount(){
         $.get("http://104.199.175.76/api/ui/menu/home")
         .done((res)=>{
@@ -29,7 +45,7 @@ export default class Menu extends Component {
         //anything else you want to do(save to localStorage)... 
     }
 
-    clickOnButton(id) {
+    clickOnButton(id, url) {
         this.state.conf.map( (button) => {
             if (button.active == true) button.active = false
             if (id == button.id) {
@@ -37,6 +53,7 @@ export default class Menu extends Component {
             }
         })
         this.forceUpdate();
+        window.console.log(url)
     }
 
     render() {
@@ -55,7 +72,7 @@ export default class Menu extends Component {
             else 
                 buttonClass = "menuButton"
             return (
-                <span onClick={this.clickOnButton.bind(this, button.id) } key={index} href={button.url} className={buttonClass} >{button.title}</span>
+                <a style={{color: 'white'}} onClick={this.clickOnButton.bind(this, button.id, button.url) } key={index} href={button.url} className={buttonClass} >{button.title}</a>
             )
         })
         return (
@@ -64,30 +81,40 @@ export default class Menu extends Component {
                     <div className={classRoot}>
                     
                         <div className="menuLeft">
-                                        {!isAuthenticated &&
-              <Login
-                errorMessage={errorMessage}
-                onLoginClick={ creds => dispatch(loginUser(creds)) }
-              />
-            }
+                        <div style={{marginTop: '-30px'}}>
+                            {!isAuthenticated &&
+                                <form className="sectionBtn"><span onClick={this.openLoginForm.bind(this)}>Đăng nhập</span></form>
+                            }
 
-            {isAuthenticated &&
-              <Logout onLogoutClick={() => dispatch(logoutUser())} />
-            }
+                            <Layer onClose={this.onClose.bind(this)} hidden={this.state.openDialogForm} closer={true} align="top">
+                            <Header>
+                                <Heading tag="h2">
+                                Đăng nhập
+                                </Heading>
+                            </Header>
+                            <Section>
+                                <Paragraph>
+                                    <Login
+                                        errorMessage={errorMessage}
+                                        onLoginClick={ creds => dispatch(loginUser(creds))}
+                                        onClick={this.onClose.bind(this)} 
+                                    />
+                                </Paragraph>
+                            </Section>
+                            </Layer>
 
+                            {isAuthenticated &&
+
+                            <Logout onLogoutClick={() => dispatch(logoutUser())} />
+                            }
+                        </div>
 
                         </div>
 
                         <div className="menuRight">
                             {buttonArr}
-                                                    <FacebookLogin socialId="156142261154836"
-                                language="en_US"
-                                scope="public_profile,email"
-                                responseHandler={this.responseFacebook}
-                                xfbml={true}
-                                version="v2.5"
-                                class="menuButton"
-                                buttonText="Login via fb"/>
+                            <a style={{color: 'white'}}  href={"/cart/"+localStorage.getItem('order')} className="menuButton" >Giỏ hàng</a>
+
                         </div>
 
                     </div>

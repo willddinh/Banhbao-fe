@@ -11,9 +11,7 @@ export default class Login extends Component {
       <div>
         <input type='text' ref='username' className="form-control"  placeholder='Username'/>
         <input type='password' ref='password' className="form-control"  placeholder='Password'/>
-        <button onClick={(event) => this.handleClick(event)} className="btn btn-primary">
-          Login
-        </button>   
+        <form className="sectionBtn"><span onClick={(event) => this.handleClick(event)}>Đăng nhập</span></form>
 
         {errorMessage &&
           <p>{errorMessage}</p>

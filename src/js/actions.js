@@ -41,11 +41,42 @@ export const CART_REQUEST = 'CART_REQUEST'
 export const CART_SUCCESS = 'CART_SUCCESS'
 export const CART_FAILURE = 'CART_FAILURE'
 
+export const BOOK_LIST_REQUEST = 'BOOK_LIST_REQUEST'
+export const BOOK_LIST_SUCCESS = 'BOOK_LIST_SUCCESS'
+export const BOOK_LIST_FAILURE = 'BOOK_LIST_FAILURE'
+
 export function fetchBook(id) {
   return {
     [CALL_API]: {
       endpoint: 'book/detail/'+id,
       types: [BOOK_DETAIL_REQUEST, BOOK_DETAIL_SUCCESS, BOOK_DETAIL_FAILURE]
+    }
+  }
+}
+
+export function fetchBookList() {
+  return {
+    [CALL_API]: {
+      endpoint: 'book/list',
+      types: [BOOK_LIST_REQUEST, BOOK_LIST_SUCCESS, BOOK_LIST_FAILURE]
+    }
+  }
+}
+
+export function fetchBookListById(id) {
+  return {
+    [CALL_API]: {
+      endpoint: 'book/list?categoryId='+id,
+      types: [BOOK_LIST_REQUEST, BOOK_LIST_SUCCESS, BOOK_LIST_FAILURE]
+    }
+  }
+}
+
+export function fetchBookListByPublisher(id) {
+  return {
+    [CALL_API]: {
+      endpoint: 'book/list?publisherId='+id,
+      types: [BOOK_LIST_REQUEST, BOOK_LIST_SUCCESS, BOOK_LIST_FAILURE]
     }
   }
 }
@@ -59,10 +90,10 @@ export function fetchPaymentList() {
   }
 }
 
-export function fetchCart() {
+export function fetchCart(id) {
   return {
     [CALL_API]: {
-      endpoint: 'cart',
+      endpoint: 'cart/orderInfo/'+id,
       authenticated: true,
       types: [CART_REQUEST, CART_SUCCESS, CART_FAILURE],
       method: "GET"
@@ -71,14 +102,13 @@ export function fetchCart() {
 }
 
 
-export function fetchAddToCart(body) {
+export function fetchAddToCart(id) {
   return {
     [CALL_API]: {
-      endpoint: 'cart',
       authenticated: true,
+      endpoint: 'cart/addOrderItem?productId='+id,
       types: [ADD_TO_CART_REQUEST, ADD_TO_CART_SUCCESS, ADD_TO_CART_FAILURE],
-      method: "POST",
-      body: body
+      method: "POST"
     }
   }
 }
@@ -199,7 +229,7 @@ let json = {email:creds.username,
     // We dispatch requestLogin to kickoff the call to the API
     dispatch(requestLogin(creds))
 
-    return fetch('http://104.199.175.76:8001/api/login', config)
+    return fetch('http://banhbao.io/api/login', config)
       .then(response =>
         response.json().then(user => ({ user, response }))
             ).then(({ user, response }) =>  {

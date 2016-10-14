@@ -19,7 +19,7 @@ import Button from 'grommet/components/Button';
 
 import $ from 'jquery';
 import { connect } from 'react-redux'
-import { loginUser, fetchBook, fetchQuote,  fetchSecretQuote } from '../actions'
+import { loginUser, fetchBook, fetchQuote,  fetchCart, fetchSecretQuote } from '../actions'
 import Login from '../login'
 import Quotes from '../quotes'
 
@@ -37,32 +37,31 @@ class Cart extends Component {
   onClick(){
   }
   componentWillMount(){
-      this.state.cart = {
-          cartId: 1,
-          books: [
-            { 
-                name: "Tên sản phẩm 1",
-                rentPrice: 20000,
-                price: 40000,
-                qty: 1,
-                discount: 0, 
-                total: 60000
-            },
-                        { 
-                name: "Tên sản phẩm 2",
-                rentPrice: 40000,
-                price: 40000,
-                qty: 1,
-                discount: 0, 
-                total: 80000
-            }
+    //   this.state.cart = {
+    //       cartId: 1,
+    //       books: [
+    //         { 
+    //             name: "Tên sản phẩm 1",
+    //             rentPrice: 20000,
+    //             price: 40000,
+    //             qty: 1,
+    //             discount: 0, 
+    //             total: 60000
+    //         },
+    //                     { 
+    //             name: "Tên sản phẩm 2",
+    //             rentPrice: 40000,
+    //             price: 40000,
+    //             qty: 1,
+    //             discount: 0, 
+    //             total: 80000
+    //         }
 
-          ]
-      }
+    //       ]
+    //   }
   }
   componentDidMount(){
-    //   this.props.dispatch(fetchCart(this.props.params.id));
-    //   window.console.log(this.props.book)
+      this.props.dispatch(fetchCart(this.props.params.id));
   }
   render() {
 
@@ -135,9 +134,9 @@ class Cart extends Component {
                 </tr>
             </thead>
             <tbody>
-            {this.state.cart && 
-                this.state.cart.books.map( (book,index) => {
-                    return ( <TableRow key={index}><td>{book.name}</td><td>{book.rentPrice} đ</td><td>{book.price} đ</td><td>{book.qty}</td><td>{book.discount} đ</td><td>{book.total} đ</td></TableRow>)
+            {cart && 
+                cart.order.items.map( (book,index) => {
+                    return ( <TableRow key={index}><td>Tên sản phẩm: {book.product_name}</td><td>{book.price} đ</td><td>{book.price} đ</td><td>{book.quantity}</td><td>{book.discount} đ</td><td>{book.total} đ</td></TableRow>)
                 })
             }
             </tbody>

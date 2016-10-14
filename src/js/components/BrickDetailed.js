@@ -13,6 +13,9 @@ const TYPE_WIDE = 'wide';
 const TYPE_TALL = 'tall';
 
 export default class Brick extends Component {
+  onClick(id){
+
+  }
   render () {
     let widthUnit = 1;
     let heightUnit = 1;
@@ -74,8 +77,9 @@ export default class Brick extends Component {
     );
 
     if (clickable) {
+      let url = "/book/"+this.props.id;
       return (
-        <Anchor href={this.props.href} onClick={this.props.onClick} className={classes}>
+        <Anchor href={url} onClick={this.onClick.bind(this, this.props.id)} className={classes}>
           <div className={`${CLASS_ROOT}__background`} style={style}>
             {brickContent}
           </div>
@@ -83,7 +87,7 @@ export default class Brick extends Component {
           <div className="productListItemInfo">
             <div className="banhBaoRow productListItemInfo--title" alt="thien">{this.props.title}</div>
             <div className="banhBaoRow productListItemInfo--author">{this.props.author}</div>
-            <div className="banhBaoRow productListItemInfo--rent-price">{this.props.rentPrice} đồng/ngày</div>
+            <div className="banhBaoRow productListItemInfo--rent-price">{this.props.rentPrice} đồng/lần</div>
             <div className="banhBaoRow productListItemInfo--price">giá bán: {this.props.price} đồng</div>
           </div>
 

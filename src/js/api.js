@@ -9,7 +9,7 @@ function callApi(endpoint, authenticated, method, body) {
       config = {
         headers: { 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
-        },
+        }
       }
     }
     else {

@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import Table from 'grommet/components/Table';
 import $ from 'jquery';
+import { connect } from 'react-redux'
+import { fetchBookListById } from '../actions'
 
-export default class CategoryList extends Component {
+class CategoryList extends Component {
     constructor() {
         super();
         this.state = {
@@ -20,12 +22,14 @@ export default class CategoryList extends Component {
 
 
     }
-
+    onClick(id){
+        this.props.dispatch(fetchBookListById(id));
+    }
     render() {
         let category = this.state.categories.map((category, index) => {
             return (
                 <tr key={index}>
-                    <td className="categoryListBody">
+                    <td onClick={this.onClick.bind(this, category.id)} className="categoryListBody">
                         {category.title}
                     </td>
                 </tr>
@@ -51,3 +55,20 @@ export default class CategoryList extends Component {
         );
     }
 }
+
+function mapStateToProps(state, ownProps) {
+
+  const { quotes, auth } = state.banhBaoApp
+  const { quote, authenticated } = quotes
+  const { bookList, isAuthenticated, errorMessage } = auth
+
+  return {
+    quote,
+    bookList,
+    isSecretQuote: authenticated,
+    isAuthenticated,
+    errorMessage
+  }
+}
+
+export default connect(mapStateToProps)(CategoryList)

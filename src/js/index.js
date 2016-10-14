@@ -17,7 +17,6 @@ import Menu from './partials/Menu';
 import { Router, Route, IndexRoute, Link, IndexLink, browserHistory } from 'react-router';
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
 
-import createBrowserHistory from 'history/createBrowserHistory';
 import { createStore, applyMiddleware, combineReducers  } from 'redux';
 import { Provider } from 'react-redux';
 import banhBaoApp from './reducers';
@@ -73,7 +72,7 @@ ReactDOM.render((
 
         <Route path="checkout" component={Checkout}/>
         <Route path="/payment/onepay/:data" component={OnePay}/>
-        <Route path="cart" component={Cart}/>
+        <Route path="/cart/:id" component={Cart}/>
 
         <Route path="*" component={NoMatch}/>
       </Route>

@@ -51,14 +51,6 @@ class Book extends Component {
 
 
         <div className="container" style={container}>
-          <Quotes
-            onQuoteClick={() => dispatch(fetchQuote())}
-            onSecretQuoteClick={() => dispatch(fetchSecretQuote())}
-            isAuthenticated={isAuthenticated}
-            quote={quote}
-            isSecretQuote={isSecretQuote}
-          />
-
           <Section name="Thư viện sách" />
           <Section name="Second Section"  />
           <Section name="Third Section" />
