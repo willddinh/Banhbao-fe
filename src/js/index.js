@@ -6,6 +6,8 @@ import Main from './pages/Main.js';
 import Book from './pages/Book.js';
 import BookList from './pages/BookList.js';
 import BookDetail from './pages/BookDetail.js';
+import OnePay from './pages/OnePay.js';
+import Cart from './pages/Cart.js';
 
 import Checkout from './pages/Checkout/Checkout.js';
 import UserProfile from './pages/User/UserProfile.js';
@@ -18,18 +20,22 @@ import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
 import createBrowserHistory from 'history/createBrowserHistory';
 import { createStore, applyMiddleware, combineReducers  } from 'redux';
 import { Provider } from 'react-redux';
-import quotesApp from './reducers';
+import banhBaoApp from './reducers';
 import thunkMiddleware from 'redux-thunk';
 import api from './api';
+import { fetchPaymentConfirmation } from './actions'
 
 let createStoreWithMiddleware = applyMiddleware(thunkMiddleware, api)(createStore)
 
 const store = createStoreWithMiddleware(
   combineReducers({
-    quotesApp,
+    banhBaoApp,
     routing: routerReducer
   })
 )
+
+
+
 
 
 const NoMatch = React.createClass({
@@ -66,6 +72,8 @@ ReactDOM.render((
         <Route path="/book/:id" component={BookDetail}/>
 
         <Route path="checkout" component={Checkout}/>
+        <Route path="/payment/onepay/:data" component={OnePay}/>
+        <Route path="cart" component={Cart}/>
 
         <Route path="*" component={NoMatch}/>
       </Route>

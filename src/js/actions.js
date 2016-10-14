@@ -29,6 +29,17 @@ export const PAYMENT_REQUEST_REQUEST = 'PAYMENT_REQUEST_REQUEST'
 export const PAYMENT_REQUEST_SUCCESS = 'PAYMENT_REQUEST_SUCCESS'
 export const PAYMENT_REQUEST_FAILURE = 'PAYMENT_REQUEST_FAILURE'
 
+export const PAYMENT_CONFIRM_REQUEST = 'PAYMENT_CONFIRM_REQUEST'
+export const PAYMENT_CONFIRM_SUCCESS = 'PAYMENT_CONFIRM_SUCCESS'
+export const PAYMENT_CONFIRM_FAILURE = 'PAYMENT_CONFIRM_FAILURE'
+
+export const ADD_TO_CART_REQUEST = 'ADD_TO_CART_REQUEST'
+export const ADD_TO_CART_SUCCESS = 'ADD_TO_CART_SUCCESS'
+export const ADD_TO_CART_FAILURE = 'ADD_TO_CART_FAILURE'
+
+export const CART_REQUEST = 'CART_REQUEST'
+export const CART_SUCCESS = 'CART_SUCCESS'
+export const CART_FAILURE = 'CART_FAILURE'
 
 export function fetchBook(id) {
   return {
@@ -44,6 +55,42 @@ export function fetchPaymentList() {
     [CALL_API]: {
       endpoint: 'payment/pay-list',
       types: [PAYMENT_LIST_REQUEST, PAYMENT_LIST_SUCCESS, PAYMENT_LIST_FAILURE]
+    }
+  }
+}
+
+export function fetchCart() {
+  return {
+    [CALL_API]: {
+      endpoint: 'cart',
+      authenticated: true,
+      types: [CART_REQUEST, CART_SUCCESS, CART_FAILURE],
+      method: "GET"
+    }
+  }
+}
+
+
+export function fetchAddToCart(body) {
+  return {
+    [CALL_API]: {
+      endpoint: 'cart',
+      authenticated: true,
+      types: [ADD_TO_CART_REQUEST, ADD_TO_CART_SUCCESS, ADD_TO_CART_FAILURE],
+      method: "POST",
+      body: body
+    }
+  }
+}
+
+export function fetchPaymentConfirmation(body) {
+  return {
+    [CALL_API]: {
+      endpoint: 'payment/confirmPay',
+      authenticated: true,
+      types: [PAYMENT_CONFIRM_REQUEST, PAYMENT_CONFIRM_SUCCESS, PAYMENT_CONFIRM_FAILURE],
+      method: "POST",
+      body: body
     }
   }
 }

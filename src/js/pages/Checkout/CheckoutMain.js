@@ -32,14 +32,21 @@ class CheckoutMain extends Component {
             packageCode: this.state.payPackage.code,
             amount: this.state.payPackage.amount
         }
-        this.props.dispatch(fetchPaymentRequest(JSON.stringify(body)));
+        window.console.log(this.props.dispatch(fetchPaymentRequest(JSON.stringify(body))));
+                        window.console.log(isAuthenticated);
+
     }
     onChange(e, payPackage){
         this.state.payPackage = e;
     }
     render() {
-        const { payment, isAuthenticated, payUrl } = this.props
-
+        const {     quote,
+                payment,
+                payUrl,
+                isSecretQuote: authenticated,
+                isAuthenticated,
+                errorMessage
+                } = this.props
         return (
             <div className="checkOutMain">
             <Form onSubmit={this.onSubmit.bind(this)} >
@@ -92,11 +99,10 @@ class CheckoutMain extends Component {
 
 function mapStateToProps(state, ownProps) {
 
-  const { paymentLists, quotes, auth, paymentRequest } = state.quotesApp
-  const { quote, authenticated } = quotes
-  const { payment } = paymentLists
-  const { payUrl } = paymentRequest
-  const { isAuthenticated, errorMessage } = auth
+  const { paymentLists, quotes, auth, paymentRequest } = state.banhBaoApp
+  const { quote , } = quotes
+  const { payment,authenticated } = paymentLists
+  const { payUrl, isAuthenticated,  errorMessage } = auth
 
   return {
     quote,

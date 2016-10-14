@@ -1,4 +1,4 @@
-const BASE_URL = 'http://104.199.175.76/api/'
+const BASE_URL = 'http://banhbao.io/api/'
 
 function callApi(endpoint, authenticated, method, body) {
   let token = localStorage.getItem('id_token') || null
@@ -32,7 +32,7 @@ function callApi(endpoint, authenticated, method, body) {
         return Promise.reject(json)
       }
       return json
-    }).catch(err => console.log(err))
+    })
 }
 
 export const CALL_API = Symbol('Call API')
@@ -60,7 +60,8 @@ export default store => next => action => {
         method,
         body
       }),
-    error => next({
+    error => 
+    next({
       error: error.message || 'There was an error.',
       type: errorType
     })

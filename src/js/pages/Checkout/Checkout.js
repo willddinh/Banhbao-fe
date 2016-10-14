@@ -60,7 +60,7 @@ class Checkout extends Component {
 
 function mapStateToProps(state, ownProps) {
 
-  const { paymentLists, quotes, auth } = state.quotesApp
+  const { paymentLists, quotes, auth } = state.banhBaoApp
   const { quote, authenticated } = quotes
   const { payment } = paymentLists
 

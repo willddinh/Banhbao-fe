@@ -79,7 +79,7 @@ class Book extends Component {
 
 function mapStateToProps(state, ownProps) {
 
-  const { quotes, auth } = state.quotesApp
+  const { quotes, auth } = state.banhBaoApp
   const { quote, authenticated } = quotes
   const { isAuthenticated, errorMessage } = auth
 
