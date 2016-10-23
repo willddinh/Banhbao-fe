@@ -44,7 +44,8 @@ export default class Section extends Component {
                         {tabRender}
                     </Tabs>
                 </div>
-                <form className="sectionBtn"><button>Xem chi tiết</button></form>
+                <div><a style={{display:"table",margin:"0 auto",color:"white"}} href="/books" className="pageBtnActive">Xem chi tiết</a></div>
+                <br/>
             </div>
         );
     }

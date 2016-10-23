@@ -1,9 +1,13 @@
 const BASE_URL = 'http://banhbao.io/api/'
+import cookie from 'react-cookie';
 
 function callApi(endpoint, authenticated, method, body) {
-  let token = localStorage.getItem('id_token') || null
+  let token = cookie.load('id_token') || null;
+  let session = cookie.load('session') || null;
   let config = {}
-
+  config.headers = {
+    'app-session' : session
+  }
   if(authenticated) {
     if(token) {
       config = {
@@ -12,16 +16,16 @@ function callApi(endpoint, authenticated, method, body) {
         }
       }
     }
-    else {
-      throw "No token saved!"
-    }
-    if(method) {
-      config.method = `${method}`;
-    }
-    if(body) {
-      config.body = `${body}`;
-    }
-
+    // else {
+    //   throw "No token saved!"
+    // }
+  
+  }
+  if(method) {
+    config.method = `${method}`;
+  }
+  if(body) {
+    config.body = `${body}`;
   }
 
   return fetch(BASE_URL + endpoint, config)
@@ -62,7 +66,7 @@ export default store => next => action => {
       }),
     error => 
     next({
-      error: error.message || 'There was an error.',
+      error: error || 'There was an error.',
       type: errorType
     })
   )

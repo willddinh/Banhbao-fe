@@ -32,14 +32,18 @@ class BookDetail extends Component {
     };
   }
 
-  onClick(){
-    window.console.log(this.props.book);
-    let body = {
-      books: []
-    }
-      this.props.dispatch(fetchAddToCart(body));
+  onClick(id){
+  }
+  addToCart(id){
+      this.props.dispatch(fetchAddToCart(id));
+  }
+  addToWishList(){
 
   }
+  numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  }
+
   componentDidMount(){
       this.props.dispatch(fetchBook(this.props.params.id));
       window.console.log(this.props.book)
@@ -55,13 +59,14 @@ class BookDetail extends Component {
 
     let leftSection = {
         float: 'left',
-        width: '25%'
+        width: '30%'
     }
 
     let rightSection = {
         float: 'right',
-        width: '75%',
-        color: 'black'
+        width: '70%',
+        color: 'black',
+        paddingLeft: '20px'
     }
 
     let bookDesc = {
@@ -69,25 +74,29 @@ class BookDetail extends Component {
     }
 
     let bookSection = {
-
+      marginTop: "20px"
     }
     let bookContent = {
-      height: '170px'
+      height: '100px',
+      fontFamily: 'sfuEuro',
+      fontSize: '16px',
+      color: 'grey',
+      overflow: 'auto'
     }
-
+    let addToBtn = {
+      height: '50px',
+      marginTop: '20px'
+    }
     let imageDesc = {
-      width: '320px',
+      width: '100%',
       height: '480px',
-      backgroundColor: 'blueviolet'
+      // backgroundColor: 'blueviolet'
     }
     return (
       <App centered={false}>
-        <Menu           
-          isAuthenticated={isAuthenticated}
-          errorMessage={errorMessage}
-          dispatch={dispatch}
+        <Menu 
+          noNavBar={true}
         />
-        <NavBar />
 
 
         <div className="productListSection" style={container}>
@@ -95,19 +104,25 @@ class BookDetail extends Component {
             <div >
             <div className="bookDesc" style={bookDesc}>
               <div style={leftSection}>
-                <div style={imageDesc}></div> 
+                <div style={imageDesc}><img style={{widht: '100%'}}src={book.book.path} /></div> 
               </div>
               <div style={rightSection}>
-                <Heading>
+                <div className="productDetailTitle">
                   {book.book.entity.title}
-                </Heading>
+                  <span className="productDetailTitleSmall">Đứng thứ 15 trong 100 sách bán chạy nhất tháng này</span><br/>
+                  <span className="productDetailTitleSmall">Tác giả: {book.book.author_id}</span>
+                </div>
               <Header separator="top">
                 <div style={bookSection}>
-                    <h3>Giới thiệu sách</h3><br/>
-                    <div style={bookContent}>{book.book.content}</div>
-                    <h3>{book.book.rent_price}</h3>
-                    <h3>Giá bán: {book.book.entity.price}</h3>
-                    <span>Số lượng: 1</span><Button label="Thêm vào giỏ hàng" primary={true} onClick={this.onClick.bind(this)} />
+                    <div className="productDetailContentTitle">Giới thiệu sách</div><br/>
+                    <div style={bookContent}>{book.book.content}
+                    </div>
+                    <div className="productDetailRentPrice">{this.numberWithCommas(Number(book.book.entity.rent_price))} đồng/ngày</div>
+                    <div className="productDetailPrice">giá bán: {this.numberWithCommas(Number(book.book.entity.price))} đồng</div>
+                    <div style={addToBtn}>
+                      <span onClick={this.addToCart.bind(this, book.book.id)} className="pageBtnActive">Thêm vào giỏ hàng</span>
+                      <span onClick={this.addToWishList.bind(this, book.book.id)} className="pageBtnActive" style={{backgroundColor: "orange", borderColor: "orange"}}>Thêm vào yêu thích</span>
+                    </div>
 
                 </div>
               </Header>
@@ -132,9 +147,10 @@ function mapStateToProps(state, ownProps) {
   const { quote, authenticated } = quotes
     const { book } = books
 
-  const { isAuthenticated, errorMessage } = auth
+  const { isAuthenticated, errorMessage,addToCart } = auth
 
   return {
+    addToCart,
     quote,
     book,
     isSecretQuote: authenticated,

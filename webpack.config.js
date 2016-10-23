@@ -21,7 +21,7 @@ module.exports = {
       include: __dirname
     }, {
       test: /\.scss?$/,
-      loaders: ['style', 'css', 'sass'],
+      loaders: ['style', 'css', 'sass','font?format[]=truetype&format[]=woff&format[]=embedded-opentype'],
       include: __dirname
     },
     {

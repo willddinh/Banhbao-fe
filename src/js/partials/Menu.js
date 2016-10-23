@@ -2,8 +2,10 @@ import React, { Component, PropTypes  } from 'react';
 import $ from 'jquery';
 import { FacebookLogin } from 'react-facebook-login-component';
 import Login from '../login'
+import { connect } from 'react-redux'
+
 import Logout from '../logout'
-import { loginUser, logoutUser } from '../actions'
+import { loginUser, logoutUser, sessionRequest } from '../actions'
 import { Link } from 'react-router'
 import Header from 'grommet/components/Header';
 import Layer from 'grommet/components/Layer';
@@ -12,9 +14,9 @@ import Heading from 'grommet/components/Heading';
 import Paragraph from 'grommet/components/Paragraph';
 
 
-export default class Menu extends Component {
-    constructor() {
-        super();
+class Menu extends Component {
+    constructor(props) {
+        super(props);
         this.state = {
             conf: [],
             openDialogForm:true
@@ -40,6 +42,10 @@ export default class Menu extends Component {
 
 
     }
+
+    onLogoutClick(){
+        this.props.dispatch(logoutUser());
+    }
     responseFacebook (response) {
         window.console.log(response);
         //anything else you want to do(save to localStorage)... 
@@ -53,11 +59,9 @@ export default class Menu extends Component {
             }
         })
         this.forceUpdate();
-        window.console.log(url)
     }
-
     render() {
-        const { dispatch, isAuthenticated, errorMessage } = this.props
+        const { dispatch, isAuthenticated, errorMessage , userInfo } = this.props
 
         let classRoot = "menu";
         if (!this.props.noNavBar)
@@ -72,7 +76,7 @@ export default class Menu extends Component {
             else 
                 buttonClass = "menuButton"
             return (
-                <a style={{color: 'white'}} onClick={this.clickOnButton.bind(this, button.id, button.url) } key={index} href={button.url} className={buttonClass} >{button.title}</a>
+                <Link to={button.url}><span style={{color: 'white'}} onClick={this.clickOnButton.bind(this, button.id, button.url) } key={index}  className={buttonClass} >{button.title}</span></Link>
             )
         })
         return (
@@ -81,39 +85,24 @@ export default class Menu extends Component {
                     <div className={classRoot}>
                     
                         <div className="menuLeft">
-                        <div style={{marginTop: '-30px'}}>
-                            {!isAuthenticated &&
-                                <form className="sectionBtn"><span onClick={this.openLoginForm.bind(this)}>Đăng nhập</span></form>
-                            }
-
-                            <Layer onClose={this.onClose.bind(this)} hidden={this.state.openDialogForm} closer={true} align="top">
-                            <Header>
-                                <Heading tag="h2">
-                                Đăng nhập
-                                </Heading>
-                            </Header>
-                            <Section>
-                                <Paragraph>
-                                    <Login
-                                        errorMessage={errorMessage}
-                                        onLoginClick={ creds => dispatch(loginUser(creds))}
-                                        onClick={this.onClose.bind(this)} 
-                                    />
-                                </Paragraph>
-                            </Section>
-                            </Layer>
-
-                            {isAuthenticated &&
-
-                            <Logout onLogoutClick={() => dispatch(logoutUser())} />
-                            }
+                            <Link to="/"><span className="menuTitle"><img src="https://storage.googleapis.com/banhbaovietnam/logo.png" /></span></Link>
                         </div>
-
-                        </div>
-
                         <div className="menuRight">
                             {buttonArr}
-                            <a style={{color: 'white'}}  href={"/cart/"+localStorage.getItem('order')} className="menuButton" >Giỏ hàng</a>
+                            <Link to="/cart"><span style={{color: 'white'}} className="menuButton" >Giỏ hàng</span></Link>
+                            {isAuthenticated &&
+                                <div style={{float: "right", width: "50%"}}>
+                                    <Link to="/user-profile"><span style={{color: 'white'}} className="menuButton" >Chào {userInfo.user.name}</span></Link>
+                                    <span style={{color: 'white', cursor: "pointer"}}  href="#" onClick={this.onLogoutClick.bind(this)} className="menuButton" >Đăng xuất</span>
+                                    <Link to="/add-cash"><span className="smallBtn" >Nạp tiền</span></Link>
+                                </div>
+                            }
+                            {!isAuthenticated &&
+                                <div style={{float: "right", width: "50%"}}>
+                                    <Link to="/sign-in"><span style={{color: 'white'}} className="menuButton" >Đăng nhập</span></Link>
+                                    <Link to="/sign-up"><span style={{color: 'white'}} className="menuButton" >Đăng ký</span></Link>
+                                </div>
+                            }
 
                         </div>
 
@@ -124,3 +113,16 @@ export default class Menu extends Component {
     }
 }
 
+function mapStateToProps(state, ownProps) {
+
+  const {  auth } = state.banhBaoApp
+  const { isAuthenticated, errorMessage, userInfo } = auth
+
+  return {
+    isAuthenticated,
+    userInfo,
+    errorMessage
+  }
+}
+
+export default connect(mapStateToProps)(Menu)

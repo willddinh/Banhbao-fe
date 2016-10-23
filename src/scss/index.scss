@@ -61,7 +61,7 @@
 .menuButton {
     border-bottom: 1px solid transparent;
     padding-bottom: 29px;
-    margin-left: 50px;
+    margin-right: 25px;
     cursor: pointer;
     font-family: utmBeba;
     font-size: 15px;
@@ -244,6 +244,8 @@
     font-family: sfuEuro;
     color: #A6ACAF;
     border-bottom: 1px solid #909497;
+    cursor: pointer;
+    
 }
 .categoryListBody:nth-last-child(1) {
     border-bottom: 0px;
@@ -254,7 +256,9 @@ table {
 }
 
 .publisherList {
-    // width: 260px;
+    line-height: 15px;
+    font-family: sfuEuro;
+    color: #A6ACAF;
 }
 
 .publisherListHeader {
@@ -262,6 +266,7 @@ table {
     line-height: 50px;
     font-size: 20px;
     margin-bottom: 10px;
+    color: black;
     border-bottom: 1px solid #909497;
 }
 
@@ -339,11 +344,13 @@ width: calc(50% - 12px); }
 }
 
 .productListItemInfo--title {
+    cursor: pointer;
     font-family: utmBeba;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
     font-size: 18px;
+    color: black;
 }
 .productListItemInfo--title:hover {
     text-overflow: clip;
@@ -428,11 +435,351 @@ width: calc(50% - 12px); }
     justify-content: center;
     align-items: center;
     font-family: sfuEuro;
-
+    position: absolute;
+    width: 100%;
+    font-size: 20px;
+}
+.cartHeader {
+    border: 2px solid red;
+    background-color: #F5F5F5;
+    height: 77px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    font-family: sfuEuro;
+    position: relative;
+    width: 100%;
+    font-size: 20px;
 }
 
 .checkOutMain {
     
     font-family: sfuEuro;
+    margin-top: 100px;
+}
 
+.checkOutMainTitle {
+    font-family: utmBeba;
+    padding-left: 30px;
+    font-size: 30px;
+    color: black;
+}
+
+.grommetux-form-field {
+    border: 0px;
+}
+
+.checkOutInput {
+    font-size: 16px;
+    font-size: 1rem;
+    line-height: 1.5;
+    padding: 11px 23px;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 4px;
+    outline: none;
+    background-color: transparent;
+}
+
+.checkOutButton {
+
+}
+.checkOutButton:not(.checkOutButton--disabled) {
+    cursor: pointer;
+}
+.checkOutButton {
+    margin-right: 24px;
+    white-space: nowrap;
+}
+
+.checkOutButton__input {
+    opacity: 0;
+    position: absolute;
+}
+
+.checkOutButton__input:checked + .checkOutButton__control {
+    border-color: #666;
+}
+
+.checkOutButton__input:checked + .checkOutButton__control:after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 10px;
+    height: 10px;
+    background-color: red;
+    border-radius: 12px;
+}
+
+
+.checkOutButton__control {
+    position: relative;
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    margin-right: 12px;
+    vertical-align: middle;
+    background-color: white;
+    color: red;
+    border: 2px solid #666;
+    border-radius: 24px;
+}
+
+.checkOutButton__input:checked + .checkOutButton__control + .checkOutButton__label {
+    color: #333;
+}
+
+.checkOutButton__label {
+    color: #666;
+}
+
+.sign-up-label {
+    padding-left: 20px;
+}
+
+.pay-list {
+    line-height: 50px;
+    background-color: rgb(237,237,237);
+    padding: 20px;
+    font-size: 20px;
+    font-family: sfuEuro;
+}
+.sign-up-list {
+    background-color: rgb(237,237,237);
+    padding: 20px;
+    font-size: 20px;
+    font-family: sfuEuro;
+}
+
+
+.checkout-list {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.grommetux-form {
+    margin: 0 auto;
+}
+
+.checkoutTextArea {
+    margin: 20px 20px;
+    width: 60%;
+}
+.grommet input, .grommet select, .grommet textarea {
+    background-color: white
+}
+
+.grommet input:focus, .grommet select:focus, .grommet textarea:focus {
+    border-width: 1px;
+     border-color: transparent; 
+}
+
+.smallBtn {
+    margin: 0 auto;
+    padding: 2px;
+    background-color: #e80f0f;
+    border: 2px solid #e80f0f;
+    border-radius: 0px;
+    color: white;
+    font-family: sfuEuro;
+    font-size: 13px;
+    font-weight: 300;
+    cursor: pointer;
+    text-align: center;
+    outline: none;
+    min-width: 80px;
+    max-width: 80px;
+}
+
+.loginTextArea {
+    margin: 20px 20px;
+    width: 90%;
+}
+
+.productFilter {
+    height: 70px;
+    background-color: rgb(237,237,237);
+    margin-left: 35px;
+    margin-right: 7px;
+    border-radius: 15px;
+    margin-bottom: 25px;
+}
+
+.productFilterbtn {
+    font-family: utmBeba;
+    font-size: 14px !important;
+    border: 1px solid #D8D8D8 !important;
+    border-radius: 5px !important;
+    color: gray !important;
+    min-width: 140px !important;
+    background-color: white !important;
+    font-weight: 100 !important;
+    margin-left: 25px;
+    margin-top: 15px;
+}
+
+.productFilterbtn:focus {
+    color: black !important;
+    border-color: transparent !important;
+}
+
+.pageBtn {
+    margin-right: 10px;
+    padding: 9px 15px;
+    background-color: white;
+    border: 1px solid grey;
+    border-radius: 0px;
+    color: grey;
+    font-family: sfuEuro;
+    font-size: 15px;
+    font-weight: 300;
+    cursor: pointer;
+    text-align: center;
+    outline: none;
+}
+.pageBtnActive {
+    margin-right: 10px;
+    padding: 9px 15px;
+    background-color: #e80f0f;
+    border: 1px solid #e80f0f;
+    border-radius: 0px;
+    color: white;
+    font-family: sfuEuro;
+    font-size: 15px;
+    font-weight: 300;
+    cursor: pointer;
+    text-align: center;
+    outline: none;
+}
+
+.pageNumber{
+    float: right;
+    margin-bottom: 50px;
+}
+
+.cartPriceTitle {
+    font-family: sfuEuroNormal;
+    font-size: 16px !important;
+    color: grey;
+    text-align: right !important;
+}
+
+.cartProductname {
+    font-family: utmBeba;
+    font-size: 30px;
+    color: #E54545;
+    vertical-align: top;
+}
+
+.cartPrice {
+    font-family: utmBeba;
+    font-size: 28px;
+    color: black;
+    vertical-align: top;
+    text-align: right !important;
+}
+
+.cartCurrency {
+    font-size:20px;
+    font-family: sfuEuro;
+}
+
+.cartPhoto{
+    vertical-align: top;
+    height: 210px;
+    width: 150px;
+    background-color: lightgrey;
+}
+
+.cartGuide {
+    font-size:15px;
+    font-family: sfuEuro;
+
+}
+
+.cartRightTable {
+    max-width: 356px;
+    margin: 0px 15px auto;
+}
+
+.cartRightTableHeader {
+    font-family: utmBeba;
+    font-size: 28px !important;
+    color: black;
+    height: 100px;
+}
+
+.cartRightTableBody {
+    margin-top: 50px;
+    font-family: utmBeba;
+    font-size: 28px !important;
+    color: black;
+    height: 100px;
+}
+.cartRow{
+    width: 100%;
+    display: block;
+    margin-bottom: 25px;
+}
+.cartTd{
+    width: 100%;
+    display: block;
+}
+.fiftyLeft {
+    width: 50%;
+    float: left;
+}
+
+.fiftyRight {
+    width: 50%;
+    float: right;
+}
+
+.addToCartProductList {
+    z-index: -1;
+    position: relative;
+}
+
+.productDetailTitle {
+    font-family: utmBeba;
+    font-size: 30px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.productDetailTitleSmall {
+    font-family: sfuEuro;
+    font-size: 15px;
+    float: right;
+    text-align: right;
+}
+
+.productDetailContentTitle {
+    font-family: sfuEuroBold;
+    font-size: 15px;
+    color: grey;
+}
+
+.bookSection {
+    margin-top: 15px;
+}
+
+.productDetailRentPrice {
+    margin-top: 20px;
+    font-family: utmBeba;
+    font-size: 35px;
+}
+
+.productDetailPrice {
+    margin-top: 20px;
+    font-family: utmBeba;
+    font-size: 30px;
+    color: grey;
+}
+
+.grommetux-carousel .grommetux-tiles.grommetux-box--direction-row > .grommetux-tile.grommetux-carousel__item > * {
+    height: 100%;
 }

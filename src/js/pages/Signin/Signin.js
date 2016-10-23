@@ -8,8 +8,8 @@ import Title from 'grommet/components/Title';
 import NavBar from '../../partials/NavBar';
 import Menu from '../../partials/Menu';
 import Section from '../../partials/Section';
-import CheckoutHeader from './CheckoutHeader';
-import CheckoutMain from './CheckoutMain';
+import SigninHeader from './SigninHeader';
+import SigninMain from './SigninMain';
 
 import $ from 'jquery';
 import { Link } from 'react-router'
@@ -18,7 +18,7 @@ import { loginUser, fetchPaymentList, fetchQuote, fetchSecretQuote } from '../..
 import Login from '../../login'
 import Quotes from '../../quotes'
 
-class Checkout extends Component {
+class Signin extends Component {
   constructor (props) {
     super (props);
 
@@ -46,15 +46,12 @@ class Checkout extends Component {
     }
     return (
       <App centered={false}>
-        <Menu           
-          noNavBar={true}
-        />
-              <CheckoutHeader />
-              {isAuthenticated &&
-                <div className="container" style={container}>
-                  <CheckoutMain />
-                </div>
-              }
+        <Menu  noNavBar={true}/>
+              <SigninHeader />
+
+              <div className="container" style={container}>
+                <SigninMain />
+              </div>
       </App>
     );
   }
@@ -77,4 +74,4 @@ function mapStateToProps(state, ownProps) {
   }
 }
 
-export default connect(mapStateToProps)(Checkout)
+export default connect(mapStateToProps)(Signin)

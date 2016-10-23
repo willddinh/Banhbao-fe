@@ -129,16 +129,11 @@ Brick.defaultProps = {
 
 function mapStateToProps(state, ownProps) {
 
-  const { quotes, auth } = state.banhBaoApp
-  const { quote, authenticated } = quotes
-  const { addToCart, bookList, isAuthenticated, errorMessage } = auth
+  const { auth } = state.banhBaoApp
+  const { addToCart, errorMessage } = auth
 
   return {
     addToCart,
-    quote,
-    bookList,
-    isSecretQuote: authenticated,
-    isAuthenticated,
     errorMessage
   }
 }

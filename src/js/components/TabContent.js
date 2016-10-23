@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Brick from './Brick';
+import BrickDetailed from './BrickDetailed';
 import Bricks from './Bricks';
 
 
@@ -7,7 +7,9 @@ export default class TabContent extends Component {
     render() {
         let tabContent = this.props.content.map((content, index) => {
             return (
-                <Brick key={index} content={content} href={content.path} texture={content.path} colorIndex={"neutral-" + (index+1)} type={content.type} href={content.href} />
+                <BrickDetailed  id={content.id} key={index} title={content.title} texture={content.path} colorIndex={"neutral-" + (index+1)} type={content.type} href={"http://google.com"}
+                    rentPrice={Number(content.price)} price={Number(content.price)} author={content.author} 
+                />
             )
         })
         return (

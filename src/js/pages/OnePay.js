@@ -39,12 +39,7 @@ class OnePay extends Component {
     }
     return (
       <App centered={false}>
-              <Menu           
-          isAuthenticated={isAuthenticated}
-          errorMessage={errorMessage}
-          dispatch={dispatch}
-          noNavBar={true}
-        />
+              <Menu  noNavBar={true}/>
 
         <div className="container" style={container}>
         {paymentConfirmation &&

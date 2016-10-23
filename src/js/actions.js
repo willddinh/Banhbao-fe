@@ -1,11 +1,11 @@
 // actions.js
 import { CALL_API } from './api'
+import cookie from 'react-cookie';
+import _ from 'lodash';
 
 
-// Three possible states for our logout process as well.
-// Since we are using JWTs, we just need to remove the token
-// from localStorage. These actions are more useful if we
-// were calling the API to log the user out
+export const ADD_BOOK_LIST_PARAM = 'ADD_BOOK_LIST_PARAM'
+
 export const LOGOUT_REQUEST = 'LOGOUT_REQUEST'
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS'
 export const LOGOUT_FAILURE = 'LOGOUT_FAILURE'
@@ -45,6 +45,87 @@ export const BOOK_LIST_REQUEST = 'BOOK_LIST_REQUEST'
 export const BOOK_LIST_SUCCESS = 'BOOK_LIST_SUCCESS'
 export const BOOK_LIST_FAILURE = 'BOOK_LIST_FAILURE'
 
+export const SESSION_REQUEST = "SESSION_REQUEST"
+export const SESSION_SUCCESS = 'SESSION_SUCCESS'
+export const SESSION_FAILURE = 'SESSION_FAILURE'
+
+export const USER_BALANCE_REQUEST = "USER_BALANCE_REQUEST"
+export const USER_BALANCE_SUCCESS = 'USER_BALANCE_SUCCESS'
+export const USER_BALANCE_FAILURE = 'USER_BALANCE_FAILURE'
+
+export const DUMP_USER_REQUEST = "DUMP_USER_REQUEST"
+export const DUMP_USER_SUCCESS = 'DUMP_USER_SUCCESS'
+export const DUMP_USER_FAILURE = 'DUMP_USER_FAILURE'
+
+export const SIGN_UP_USER_REQUEST = "SIGN_UP_USER_REQUEST"
+export const SIGN_UP_USER_SUCCESS = 'SIGN_UP_USER_SUCCESS'
+export const SIGN_UP_USER_FAILURE = 'SIGN_UP_USER_FAILURE'
+
+export const DELETE_CART_REQUEST = 'DELETE_CART_REQUEST'
+export const DELETE_CART_SUCCESS = 'DELETE_CART_SUCCESS'
+export const DELETE_CART_FAILURE = 'DELETE_CART_FAILURE'
+
+
+
+
+export function fetchDeleteCart() {
+  return {
+    [CALL_API]: {
+      endpoint: 'cart/deleteCartItem',
+      authenticated: true,
+      types: [DELETE_CART_REQUEST, DELETE_CART_SUCCESS, DELETE_CART_FAILURE],
+      method: "POST"
+    }
+  }
+}
+
+export function fetchSignupUser(creds) {
+  return {
+    [CALL_API]: {
+      method: "POST",
+      endpoint: 'signup',
+      types: [SIGN_UP_USER_REQUEST, SIGN_UP_USER_SUCCESS, SIGN_UP_USER_FAILURE],
+      body: creds
+    }
+  }
+}
+
+export function fetchUserInfo() {
+  return {
+    [CALL_API]: {
+      authenticated: true,
+      endpoint: 'dump',
+      types: [DUMP_USER_REQUEST, DUMP_USER_SUCCESS, DUMP_USER_FAILURE]
+    }
+  }
+}
+
+
+
+export function fetchUserBalance(id) {
+  return {
+    [CALL_API]: {
+      authenticated: true,
+      method: "POST",
+      endpoint: 'balance/info',
+      types: [USER_BALANCE_REQUEST, USER_BALANCE_SUCCESS, USER_BALANCE_FAILURE]
+    }
+  }
+}
+
+
+export function sessionRequest() {
+  return {
+    [CALL_API]: {
+      method: "POST",
+      endpoint: 'app/session',
+      types: [SESSION_REQUEST, SESSION_SUCCESS, SESSION_FAILURE]
+    }
+  }
+
+}
+
+
 export function fetchBook(id) {
   return {
     [CALL_API]: {
@@ -54,12 +135,49 @@ export function fetchBook(id) {
   }
 }
 
-export function fetchBookList() {
+
+
+export function fetchBookList(builder) {
+  if (builder === undefined)
+    builder = "";
+  else {
+    builder = JSON.parse(builder);
+    builder = encodeQueryData(builder);
+    builder = "?"+builder;
+  }
   return {
     [CALL_API]: {
-      endpoint: 'book/list',
+      endpoint: 'book/list'+builder,
       types: [BOOK_LIST_REQUEST, BOOK_LIST_SUCCESS, BOOK_LIST_FAILURE]
     }
+  }
+}
+
+function encodeQueryData(data) {
+   let ret = [];
+   for (let d in data)
+     ret.push(encodeURIComponent(d) + '=' + encodeURIComponent(data[d]));
+   return ret.join('&');
+}
+
+function qs (a) {
+    if (a == "") return {};
+    var b = {};
+    for (var i = 0; i < a.length; ++i)
+    {
+        var p=a[i].split('=', 2);
+        if (p.length == 1)
+            b[p[0]] = "";
+        else
+            b[p[0]] = decodeURIComponent(p[1].replace(/\+/g, " "));
+    }
+    return b;
+}
+
+export function addBookListParam(param){
+  return {
+      type: ADD_BOOK_LIST_PARAM,
+      param
   }
 }
 
@@ -67,6 +185,14 @@ export function fetchBookListById(id) {
   return {
     [CALL_API]: {
       endpoint: 'book/list?categoryId='+id,
+      types: [BOOK_LIST_REQUEST, BOOK_LIST_SUCCESS, BOOK_LIST_FAILURE]
+    }
+  }
+}
+export function fetchBookListByPriceOrder(id) {
+  return {
+    [CALL_API]: {
+      endpoint: 'book/list?priceOrder='+id,
       types: [BOOK_LIST_REQUEST, BOOK_LIST_SUCCESS, BOOK_LIST_FAILURE]
     }
   }
@@ -90,10 +216,10 @@ export function fetchPaymentList() {
   }
 }
 
-export function fetchCart(id) {
+export function fetchCart() {
   return {
     [CALL_API]: {
-      endpoint: 'cart/orderInfo/'+id,
+      endpoint: 'cart/cartInfo',
       authenticated: true,
       types: [CART_REQUEST, CART_SUCCESS, CART_FAILURE],
       method: "GET"
@@ -106,7 +232,7 @@ export function fetchAddToCart(id) {
   return {
     [CALL_API]: {
       authenticated: true,
-      endpoint: 'cart/addOrderItem?productId='+id,
+      endpoint: 'cart/addCartItem?productId='+id,
       types: [ADD_TO_CART_REQUEST, ADD_TO_CART_SUCCESS, ADD_TO_CART_FAILURE],
       method: "POST"
     }
@@ -176,7 +302,7 @@ function receiveLogin(user) {
     type: LOGIN_SUCCESS,
     isFetching: false,
     isAuthenticated: true,
-    id_token: user.id_token
+    id_token: user.token
   }
 }
 
@@ -210,8 +336,9 @@ function receiveLogout() {
 // Logs the user out
 export function logoutUser() {
   return dispatch => {
-    dispatch(requestLogout())
-    localStorage.removeItem('id_token')
+    dispatch(requestLogout());
+    cookie.remove('id_token', { path: '/' });
+
     dispatch(receiveLogout())
   }
 }
@@ -234,17 +361,16 @@ let json = {email:creds.username,
         response.json().then(user => ({ user, response }))
             ).then(({ user, response }) =>  {
         if (!response.ok) {
-          // If there was a problem, we want to
-          // dispatch the error condition
-          dispatch(loginError(user.message))
+          window.console.log(user);
+          dispatch(loginError(user))
           return Promise.reject(user)
         } else {
-          window.console.log(user);
           // If login was successful, set the token in local storage
-          localStorage.setItem('id_token', user.token)
+          cookie.save('id_token', user.token, { path: '/' });
+          dispatch(fetchUserInfo());
           // Dispatch the success action
           dispatch(receiveLogin(user))
         }
-      }).catch(err => console.log("Error: ", err))
+      }).catch(err => {})
   }
 }

@@ -1,5 +1,7 @@
-import { combineReducers } from 'redux'
+import { combineReducers } from 'redux';
+import cookie from 'react-cookie';
 import {
+  ADD_BOOK_LIST_PARAM,
   LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS,
   QUOTE_REQUEST, QUOTE_SUCCESS, QUOTE_FAILURE,
   BOOK_DETAIL_REQUEST, BOOK_DETAIL_SUCCESS, BOOK_DETAIL_FAILURE,
@@ -8,7 +10,12 @@ import {
   PAYMENT_CONFIRM_REQUEST, PAYMENT_CONFIRM_SUCCESS, PAYMENT_CONFIRM_FAILURE,
   ADD_TO_CART_REQUEST, ADD_TO_CART_SUCCESS, ADD_TO_CART_FAILURE,
   CART_REQUEST, CART_SUCCESS, CART_FAILURE,
-  BOOK_LIST_REQUEST, BOOK_LIST_SUCCESS, BOOK_LIST_FAILURE
+  BOOK_LIST_REQUEST, BOOK_LIST_SUCCESS, BOOK_LIST_FAILURE,
+  USER_BALANCE_REQUEST, USER_BALANCE_SUCCESS, USER_BALANCE_FAILURE,
+  DUMP_USER_REQUEST, DUMP_USER_SUCCESS, DUMP_USER_FAILURE,
+  SIGN_UP_USER_REQUEST, SIGN_UP_USER_SUCCESS, SIGN_UP_USER_FAILURE,
+  SESSION_REQUEST, SESSION_SUCCESS, SESSION_FAILURE,
+  DELETE_CART_REQUEST, DELETE_CART_SUCCESS, DELETE_CART_FAILURE
 } from './actions'
 
 
@@ -20,7 +27,17 @@ function auth(state = {
     addToCart: '',
     cart: '',
     bookList:'',
+    userBalance:'',
     isFetching: false,
+    userInfo: '',
+    session: '',
+    curPage: 0,
+    totalPage: '',
+    totalRentPrice: '',
+    isEnoughMoney: '',
+    totalPrice: '',
+    bookListParam: '',
+    signUpUser:'',
     paymentConfirmation: '',
     isAuthenticated: localStorage.getItem('id_token') ? true : false
   }, action) {
@@ -32,6 +49,7 @@ function auth(state = {
         user: action.creds
       })
     case LOGIN_SUCCESS:
+      setTimeout(() => {window.location = "/"},2000);
       return Object.assign({}, state, {
         isFetching: false,
         isAuthenticated: true,
@@ -53,6 +71,7 @@ function auth(state = {
         isFetching: true
       })
     case PAYMENT_REQUEST_SUCCESS:
+      window.location = action.response.pay_url
       return Object.assign({}, state, {
         isFetching: false,
         payUrl: action.response,
@@ -86,8 +105,7 @@ function auth(state = {
         isFetching: true
       })
     case ADD_TO_CART_SUCCESS:
-      alert("Đã đưa thành công vào giỏ hàng: "+action.response.orderId);
-      localStorage.setItem('order', action.response.orderId)
+      alert("Đã đưa thành công vào giỏ hàng");
 
       return Object.assign({}, state, {
         isFetching: false,
@@ -95,9 +113,10 @@ function auth(state = {
         authenticated: action.authenticated || false
       })
     case ADD_TO_CART_FAILURE:
+        alert("Có lỗi xẩy ra: "+JSON.stringify(action.error));
+
       return Object.assign({}, state, {
         isFetching: false,
-        isAuthenticated: false,
         errorMessage: action.message
       })
     case CART_REQUEST:
@@ -105,15 +124,23 @@ function auth(state = {
         isFetching: true
       })
     case CART_SUCCESS:
+    let totalRentPrice = 0;
+    let totalPrice = 0;
+    let isEnoughMoney = false;
+    action.response.cart.items.map((item) => {
+      totalRentPrice += Number(item.entity.rent_price);
+      totalPrice += Number(item.entity.price);
+    })
       return Object.assign({}, state, {
         isFetching: false,
         cart: action.response,
+        totalRentPrice: totalRentPrice,
+        totalPrice: totalPrice,
         authenticated: action.authenticated || false
       })
     case CART_FAILURE:
       return Object.assign({}, state, {
         isFetching: false,
-        isAuthenticated: false,
         errorMessage: action.message
       })
     case BOOK_LIST_REQUEST:
@@ -121,8 +148,22 @@ function auth(state = {
         isFetching: true
       })
     case BOOK_LIST_SUCCESS:
+      let totalPage = [];
+      let curPage = 1;
+      if (Math.round(action.response.totalItems / action.response.limit) == 0)
+        totalPage.push(curPage);
+      else {
+        curPage = Math.round(action.response.totalItems / action.response.limit)
+        if (action.response.totalItems % action.response.limit> 0){
+          curPage = curPage+1;
+          for(let i=1; i<curPage+1;i++)
+            totalPage.push(i)
+        }
+      }
       return Object.assign({}, state, {
         isFetching: false,
+        curPage: action.response.page,
+        totalPage: totalPage,
         bookList: action.response,
         authenticated: action.authenticated || false
       })
@@ -130,6 +171,94 @@ function auth(state = {
       return Object.assign({}, state, {
         isFetching: false,
         errorMessage: action.message
+      })
+    case USER_BALANCE_REQUEST:
+      return Object.assign({}, state, {
+        isFetching: true
+      })
+    case USER_BALANCE_SUCCESS:
+      return Object.assign({}, state, {
+        isFetching: false,
+        userBalance: action.response,
+        authenticated: action.authenticated || false
+      })
+    case USER_BALANCE_FAILURE:
+      return Object.assign({}, state, {
+        isFetching: false,
+        userBalance: {result:{main_balance:0}},
+        errorMessage: action.message
+      })
+    case DUMP_USER_REQUEST:
+      return Object.assign({}, state, {
+        isFetching: true
+      })
+    case DUMP_USER_SUCCESS:
+      return Object.assign({}, state, {
+        isFetching: false,
+        userInfo: action.response,
+        isAuthenticated: true,
+        authenticated: action.authenticated || false
+      })
+    case DUMP_USER_FAILURE:
+      return Object.assign({}, state, {
+        isFetching: false,
+        isAuthenticated: false,
+        errorMessage: action.message
+      })
+    case SIGN_UP_USER_REQUEST:
+      return Object.assign({}, state, {
+        isFetching: true
+      })
+    case SIGN_UP_USER_SUCCESS:
+      return Object.assign({}, state, {
+        isFetching: false,
+        signUpUser: action.response,
+        authenticated: action.authenticated || false
+      })
+    case SIGN_UP_USER_FAILURE:
+      return Object.assign({}, state, {
+        isFetching: false,
+        errorMessage: action.error
+      })
+
+    case SESSION_REQUEST:
+      return Object.assign({}, state, {
+        isFetching: true
+      })
+    case SESSION_SUCCESS:
+      cookie.save('session', action.response.session, { path: '/' });
+      return Object.assign({}, state, {
+        isFetching: false,
+        session: action.response.session,
+        authenticated: action.authenticated || false
+      })
+    case SESSION_FAILURE:
+      return Object.assign({}, state, {
+        isFetching: false,
+        errorMessage: action.message
+      })
+    case ADD_BOOK_LIST_PARAM:
+      return Object.assign({}, state, {
+        isFetching: false,
+        bookListParam: action.param
+      })
+    case DELETE_CART_REQUEST:
+      return Object.assign({}, state, {
+        isFetching: true
+      })
+    case DELETE_CART_SUCCESS:
+    alert("thanh cong")
+      return Object.assign({}, state, {
+        isFetching: false,
+        cart: action.response,
+        totalRentPrice: 0,
+        totalPrice: 0,
+        authenticated: action.authenticated || false
+      })
+    case DELETE_CART_FAILURE:
+      return Object.assign({}, state, {
+        isFetching: false,
+        errorMessage: action.error
       })
 
     default:
@@ -158,6 +287,10 @@ function quotes(state = {
       return Object.assign({}, state, {
         isFetching: false
       })
+
+
+
+      
     default:
       return state
     }

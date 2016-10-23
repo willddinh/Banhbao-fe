@@ -34,26 +34,19 @@ class Book extends Component {
   }
   render() {
   
-    const { dispatch, quote, isAuthenticated, errorMessage, isSecretQuote } = this.props
+    const { dispatch, userInfo, quote, isAuthenticated, errorMessage, isSecretQuote } = this.props
 
     let container = {
       width: '80%',
       margin: '0 auto'
     }
     return (
-      <App centered={false}>
-        <Menu           
-          isAuthenticated={isAuthenticated}
-          errorMessage={errorMessage}
-          dispatch={dispatch}
-        />
+      <div>
+        <Menu />
         <NavBar />
-
 
         <div className="container" style={container}>
           <Section name="Thư viện sách" />
-          <Section name="Second Section"  />
-          <Section name="Third Section" />
 
         </div>
         <Footer primary={true} appCentered={true} direction="column"
@@ -62,7 +55,7 @@ class Book extends Component {
             Build your ideas with <a href="http://grommet.io" target="_blank">Grommet</a>!
           </p>
         </Footer>
-      </App>
+        </div>
     );
   }
 }
@@ -73,12 +66,13 @@ function mapStateToProps(state, ownProps) {
 
   const { quotes, auth } = state.banhBaoApp
   const { quote, authenticated } = quotes
-  const { isAuthenticated, errorMessage } = auth
+  const { isAuthenticated, errorMessage, userInfo } = auth
 
   return {
     quote,
     isSecretQuote: authenticated,
     isAuthenticated,
+    userInfo,
     errorMessage
   }
 }

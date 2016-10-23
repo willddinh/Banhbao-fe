@@ -4,6 +4,10 @@ import React, { Component, PropTypes } from 'react';
 import classnames from 'classnames';
 import Anchor from 'grommet/components/Anchor';
 import CSSClassnames from 'grommet/utils/CSSClassnames';
+import { fetchAddToCart } from '../actions';
+import { connect } from 'react-redux';
+import $ from "jquery";
+import { Link } from 'react-router'
 
 const CLASS_ROOT = CSSClassnames.BRICK;
 const BACKGROUND_COLOR_INDEX = CSSClassnames.BACKGROUND_COLOR_INDEX;
@@ -12,9 +16,24 @@ const TYPE_LARGE = 'large';
 const TYPE_WIDE = 'wide';
 const TYPE_TALL = 'tall';
 
-export default class Brick extends Component {
-  onClick(id){
+class BrickDetailed extends Component {
+  constructor(props) {
+        super(props);
+  }
+  onMouseOver(id){
+    $(".addToCartProductList").css("z-index","-1");
+    $(".addToCartProductList-"+this.props.id).css("z-index","0");  
+    $(".productListItemInfo-image-"+this.props.id).css("background-color","black").css("opacity","0.4");  
 
+    
+  }
+  onMouseOut(){
+      $(".addToCartProductList").css("z-index","-1");
+      $(".productListItemInfo-image").css("background-color","").css("opacity","");  
+
+  }
+  onClick(id){
+    this.props.dispatch(fetchAddToCart(id));
   }
   render () {
     let widthUnit = 1;
@@ -48,7 +67,7 @@ export default class Brick extends Component {
     );
 
     let label = (
-      <div className={`${CLASS_ROOT}__label`}>
+      <div className={`${CLASS_ROOT}__label  productListItemInfo-image productListItemInfo-image-`+this.props.id}>
         <span>{this.props.label}</span>
       </div>
     );
@@ -78,20 +97,21 @@ export default class Brick extends Component {
 
     if (clickable) {
       let url = "/book/"+this.props.id;
+      // onClick={this.onClick.bind(this, this.props.id)}
       return (
-        <Anchor href={url} onClick={this.onClick.bind(this, this.props.id)} className={classes}>
+        <div onMouseOut={this.onMouseOut.bind(this)} onMouseOver={this.onMouseOver.bind(this, this.props.id)} style={{cursor: "auto"}} className={classes} >
           <div className={`${CLASS_ROOT}__background`} style={style}>
             {brickContent}
           </div>
-          
-          <div className="productListItemInfo">
-            <div className="banhBaoRow productListItemInfo--title" alt="thien">{this.props.title}</div>
+            <div className={`addToCartProductList addToCartProductList-`+this.props.id}><span onClick={this.onClick.bind(this, this.props.id)} className="pageBtnActive">Add</span></div>
+            <div className="productListItemInfo">
+            <Link to={`book/`+this.props.id}><div className="banhBaoRow productListItemInfo--title" alt="thien">{this.props.title}</div></Link>
             <div className="banhBaoRow productListItemInfo--author">{this.props.author}</div>
             <div className="banhBaoRow productListItemInfo--rent-price">{this.props.rentPrice} đồng/lần</div>
             <div className="banhBaoRow productListItemInfo--price">giá bán: {this.props.price} đồng</div>
           </div>
 
-        </Anchor>
+        </div>
       );
     } else {
       return (
@@ -103,18 +123,15 @@ export default class Brick extends Component {
   }
 }
 
-Brick.propTypes = {
-  colorIndex: PropTypes.string,
-  href: PropTypes.string,
-  label: PropTypes.string,
-  onClick: PropTypes.func,
-  texture: PropTypes.oneOfType([
-    PropTypes.node,
-    PropTypes.string
-  ]),
-  type: PropTypes.oneOf([TYPE_SMALL, TYPE_LARGE, TYPE_WIDE, TYPE_TALL])
-};
+function mapStateToProps(state, ownProps) {
 
-Brick.defaultProps = {
-  type: TYPE_SMALL
-};
+  const { auth } = state.banhBaoApp
+  const { addToCart, errorMessage } = auth
+
+  return {
+    addToCart,
+    errorMessage
+  }
+}
+
+export default connect(mapStateToProps)(BrickDetailed)

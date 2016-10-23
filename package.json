@@ -3,13 +3,16 @@
   "version": "0.1.0",
   "main": "src/js/index.js",
   "dependencies": {
+    "font-loader": "^0.1.2",
     "grommet": "0.6.10",
     "jquery": "*",
+    "lodash": "^4.16.4",
     "react": "^15.0.2",
     "react-dom": "^15.0.2",
     "react-facebook-login-component": "^0.6.0",
     "react-router": "*",
-    "react-router-redux": "^4.0.6"
+    "react-router-redux": "^4.0.6",
+    "react-toastr": "^2.8.1"
   },
   "devDependencies": {
     "babel-loader": "^6.2.5",
@@ -19,6 +22,7 @@
     "grommet-toolbox": "^0.1.0",
     "gulp": "^3.9.0",
     "react": "^15.3.2",
+    "react-cookie": "^0.4.8",
     "react-hot-loader": "^3.0.0-beta.5",
     "react-router": "^2.8.1",
     "webpack": "^1.13.2",

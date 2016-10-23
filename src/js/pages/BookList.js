@@ -28,13 +28,13 @@ class BookList extends Component {
       
     };
   }
-
+  
   componentDidMount(){
     this.props.dispatch(fetchBookList());
   }
   render() {
 
-        const { dispatch, quote, isAuthenticated, errorMessage, isSecretQuote } = this.props
+        const { dispatch, quote, bookListParam, isAuthenticated, errorMessage, isSecretQuote, curPage, totalPage } = this.props
 
     let container = {
       width: '80%',
@@ -52,14 +52,12 @@ class BookList extends Component {
         width: '80%'
 
     }
+
     return (
       <App centered={false}>
-        <Menu           
-          isAuthenticated={isAuthenticated}
-          errorMessage={errorMessage}
-          dispatch={dispatch}
+        <Menu 
+          noNavBar={true}
         />
-        <NavBar />
         <div className="productListSection" style={container}>
             <div style={leftSection}>
                 <CategoryList />
@@ -67,6 +65,7 @@ class BookList extends Component {
 
             </div>
             <div style={rightSection}>
+
                 <ProductList />
             </div>
         </div>
@@ -90,9 +89,12 @@ function mapStateToProps(state, ownProps) {
 
   const { quotes, auth } = state.banhBaoApp
   const { quote, authenticated } = quotes
-  const { isAuthenticated, errorMessage } = auth
+  const { isAuthenticated, errorMessage, bookListParam, curPage, totalPage} = auth
 
   return {
+    curPage, 
+    totalPage,
+    bookListParam,
     quote,
     isSecretQuote: authenticated,
     isAuthenticated,
