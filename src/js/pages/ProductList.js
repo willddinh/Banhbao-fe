@@ -85,7 +85,7 @@ class ProductList extends Component {
                 {bookList &&
                     bookList.items.map((product, index) => {
                     return (
-                            <BrickDetailed  id={product.id} key={index} title={product.title} texture={product.path} colorIndex={"neutral-" + (index+1)} type={product.type} href={"http://google.com"}
+                            <BrickDetailed  id={product.entityId} key={index} title={product.title} texture={product.path} colorIndex={"neutral-" + (index+1)} type={product.type} href={"http://google.com"}
                                 rentPrice={Number(product.rent_price)} price={Number(product.price)} author={product.author} 
                             />
                         )

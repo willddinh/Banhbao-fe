@@ -31,8 +31,8 @@ class Cart extends Component {
       
     };
   }
-    onDeleteCart(){
-        this.props.dispatch(fetchDeleteCart());
+    onDeleteCart(id){
+        this.props.dispatch(fetchDeleteCart(id));
     }
   onClick(){
   }
@@ -168,12 +168,13 @@ class Cart extends Component {
                             </td>
                         </tr>
                     }
-                    <tr className="cartRow">
-                        <td className="cartTd" style={{textAlign: "center"}}>
-                            <span className="pageBtnActive" onClick={this.onDeleteCart.bind(this)}>Xóa giỏ hàng</span>
-                        </td>
-                    </tr>
-
+                    {cart && 
+                        <tr className="cartRow">
+                            <td className="cartTd" style={{textAlign: "center"}}>
+                                <span className="pageBtnActive" onClick={this.onDeleteCart.bind(this, cart.cart.id)}>Xóa giỏ hàng</span>
+                            </td>
+                        </tr>
+                    }
                 </tbody>
                 </Table>
 

@@ -68,10 +68,10 @@ export const DELETE_CART_FAILURE = 'DELETE_CART_FAILURE'
 
 
 
-export function fetchDeleteCart() {
+export function fetchDeleteCart(id) {
   return {
     [CALL_API]: {
-      endpoint: 'cart/deleteCartItem',
+      endpoint: 'cart/deleteCart?cartId='+id,
       authenticated: true,
       types: [DELETE_CART_REQUEST, DELETE_CART_SUCCESS, DELETE_CART_FAILURE],
       method: "POST"
@@ -346,12 +346,14 @@ export function logoutUser() {
 export function loginUser(creds) {
 let json = {email:creds.username, 
             password:creds.password}
+  let session = cookie.load('session') || null;
+
   let config = {
     method: 'POST',
-    headers: { 'Content-Type':'application/json' },
+    headers: { 'Content-Type':'application/json', 'app-session' : session },
     body: JSON.stringify(json)
+    
   }
-
   return dispatch => {
     // We dispatch requestLogin to kickoff the call to the API
     dispatch(requestLogin(creds))

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import $ from 'jquery';
 import { fetchUserBalance } from '../../actions.js'
 import { connect } from 'react-redux'
+import { Link } from 'react-router'
 
 class CheckoutHeader extends Component {
     constructor(props) {
@@ -23,7 +24,7 @@ class CheckoutHeader extends Component {
                     <div className="checkOutHeaderContent">Tài khoản của bạn hiện có <span style={{color:"red"}}>{userBalance && userBalance.result.main_balance}</span> đồng trong tài khoản</div>
                 }
                 {!isAuthenticated &&
-                    <div className="checkOutHeaderContent">Bạn vui lòng <a href="/sign-up" style={{color:"red"}}>Đăng ký</a> hoặc <a href="/sign-in" style={{color:"red"}}>Đăng nhập</a> trước khi nạp tiền!</div>
+                    <div className="checkOutHeaderContent">Bạn vui lòng <Link to="/sign-up"><span  style={{color:"red"}}>Đăng ký</span></Link> hoặc <Link to="/sign-in"><span style={{color:"red"}}>Đăng nhập</span></Link> trước khi nạp tiền!</div>
                 }
             </div>
             

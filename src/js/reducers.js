@@ -247,7 +247,7 @@ function auth(state = {
         isFetching: true
       })
     case DELETE_CART_SUCCESS:
-    alert("thanh cong")
+    alert("Xóa giỏ hàng thành công")
       return Object.assign({}, state, {
         isFetching: false,
         cart: action.response,
